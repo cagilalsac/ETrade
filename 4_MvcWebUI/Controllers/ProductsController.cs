@@ -346,8 +346,6 @@ namespace MvcWebUI.Controllers
         /// <returns>Result</returns>
         private Result UpdateImage(ProductModel resultModel, IFormFile uploadedImage)
         {
-            Result result = new SuccessResult(); // result'ın ilk değer atamasını SuccessResult objesi olarak yapıyoruz
-
             if (uploadedImage is not null && uploadedImage.Length > 0) // eğer uploadedImage içerisinde binary veri varsa
             {
                 #region Dosya uzantı ve boyut validasyonları
@@ -362,51 +360,43 @@ namespace MvcWebUI.Controllers
                 if (!AppSettings.AcceptedImageExtensions.Split(',').Any(aie => aie.ToLower().Trim() == uploadedFileExtension.ToLower())) 
                 {
                     // yüklenen imaj uzantısının kabul edilen imaj uzantıları içerisinde olmadığı mesajını ErrorResult objesi oluşturarak result'a atıyoruz
-                    result = new ErrorResult("Image can't be uploaded because image extension is not in \"" + ".jpg, .jpeg, .png" + "\"!"); // \": çift tırnak escape sequence
+                    return new ErrorResult("Image can't be uploaded because image extension is not in \"" + AppSettings.AcceptedImageExtensions + "\"!"); // \": çift tırnak escape sequence
                 }
 
-                // result başarılı mı diye kontrol ediyoruz
-                if (result.IsSuccessful)
-                {
-                    double acceptedFileLength = AppSettings.AcceptedImageLength; // uygulamamızda kabul edilen dosya boyutu, mega bytes (Mb) cinsinden
-                    double acceptedFileLengthInBytes = acceptedFileLength * Math.Pow(1024, 2); // megabyte (Mb) cinsinden kabul edilen dosya boyutunu byte'a dönüştürüyoruz,
-                                                                                               // 1 byte = 8 bits
-                                                                                               // 1 kilo byte (Kb) = 1024 bytes
-                                                                                               // 1 mega byte (Mb) = 1024 kilo bytes (Kb) = 1024 * 1024 bytes = 1.048.576 bytes
+                double acceptedFileLength = AppSettings.AcceptedImageLength; // uygulamamızda kabul edilen dosya boyutu, mega bytes (Mb) cinsinden
+                double acceptedFileLengthInBytes = acceptedFileLength * Math.Pow(1024, 2); // megabyte (Mb) cinsinden kabul edilen dosya boyutunu byte'a dönüştürüyoruz,
+                                                                                           // 1 byte = 8 bits
+                                                                                           // 1 kilo byte (Kb) = 1024 bytes
+                                                                                           // 1 mega byte (Mb) = 1024 kilo bytes (Kb) = 1024 * 1024 bytes = 1.048.576 bytes
 
-                    // eğer yüklenen imaj dosya boyutu uygulamamızda kabul edilen dosya boyutundan büyükse
-                    if (uploadedImage.Length > acceptedFileLengthInBytes)
-                    {
-                        // yüklenen imaj dosya boyutu kabul edilen dosya boyutundan büyük mesajını ErrorResult objesi oluşturarak result'a atıyoruz,
-                        // N1: N sayı formatı, 1: ondalıktan sonra 1 hane
-                        result = new ErrorResult("Image can't be uploaded because image file length is greater than " + acceptedFileLength.ToString("N1") + " mega bytes!");
-                    }
+                // eğer yüklenen imaj dosya boyutu uygulamamızda kabul edilen dosya boyutundan büyükse
+                if (uploadedImage.Length > acceptedFileLengthInBytes)
+                {
+                    // yüklenen imaj dosya boyutu kabul edilen dosya boyutundan büyük mesajını ErrorResult objesi oluşturarak result'a atıyoruz,
+                    // N1: N sayı formatı, 1: ondalıktan sonra 1 hane
+                    return new ErrorResult("Image can't be uploaded because image file length is greater than " + acceptedFileLength.ToString("N1") + " mega bytes!");
                 }
                 #endregion
 
                 #region resultModel içerisindeki Image ve ImageExtension özellikleri güncellenmesi
-                // result başarılı mı diye kontrol ediyoruz
-                if (result.IsSuccessful)
+                // using ile new'lenen obje kapanış süslü parantezinde dispose edilir
+                using (MemoryStream memoryStream = new MemoryStream())
                 {
-                    // using ile new'lenen obje kapanış süslü parantezinde dispose edilir
-                    using (MemoryStream memoryStream = new MemoryStream())
-                    {
-                        // IFormFile CopyTo methodu ile binary veriyi memoryStream objesine kopyalıyoruz
-                        uploadedImage.CopyTo(memoryStream);
+                    // IFormFile CopyTo methodu ile binary veriyi memoryStream objesine kopyalıyoruz
+                    uploadedImage.CopyTo(memoryStream);
 
-                        // referans olarak methoddan döneceğimiz resultModel içerisindeki Image özelliğini memoryStream'in ToArray methodu ile
-                        // byte[] olarak, ImageExtension özelliğini de yukarıda yüklenen dosya adı üzerinden aldığımız dosya uzantısı üzerinden
-                        // set ediyoruz
-                        resultModel.Image = memoryStream.ToArray();
-                        resultModel.ImageExtension = uploadedFileExtension;
-                    }
+                    // referans olarak methoddan döneceğimiz resultModel içerisindeki Image özelliğini memoryStream'in ToArray methodu ile
+                    // byte[] olarak, ImageExtension özelliğini de yukarıda yüklenen dosya adı üzerinden aldığımız dosya uzantısı üzerinden
+                    // set ediyoruz
+                    resultModel.Image = memoryStream.ToArray();
+                    resultModel.ImageExtension = uploadedFileExtension;
                 }
                 #endregion
             }
 
             // eğer uploadedImage içerisinde binary veri yoksa veya herhangi bir dosya boyutu veya dosya uzantısı validasyon hatası yoksa
             // SuccessResult objesi dönüyoruz
-            return result;
+            return new SuccessResult();
         }
 
 
