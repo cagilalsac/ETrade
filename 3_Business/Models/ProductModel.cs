@@ -7,8 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Business.Models
 {
-    public class ProductModel : Record // modeller de RecordBase'den miras almalıdır ki hem Id ve Guid alanlarını
-                                           // miras alsın hem de servislerde tip olarak kullanılabilsin.
+    public class ProductModel : Record // modeller de Record'dan miras almalıdır ki Id alanını miras alsın.
     {
         // ilgili entity'de referans olmayan özellikler veya başka bir deyişle veritabanındaki ilgili tablosundaki
         // sütun karşılığı olan özellikler entity'den kopyalanır.

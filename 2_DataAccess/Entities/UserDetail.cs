@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataAccess.Entities
 {
-	public class UserDetail // Kullanıcı Detayı, User ile ilişkili olduğu ve kendi Id'si olmayacağı için RecordBase'den miras almamalı,
+	public class UserDetail // Kullanıcı Detayı, User ile ilişkili olduğu ve kendi Id'si olmayacağı için Record'dan miras almamalı,
 						    // User ile arasında 1'e 1 ilişki var, genelde 1'e 1 ilişki veritabanındaki bir tablonun çok sayıda sütununun
 							// iki veya daha fazla tabloya parçalanmasıyla oluşturulur
 	{

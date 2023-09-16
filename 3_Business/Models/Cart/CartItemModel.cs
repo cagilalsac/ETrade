@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Business.Models.Cart
 {
-    public class CartItemModel // sepet elemanı, üzerinden CRUD işlemleri yapmayacağımız için RecordBase'den miras almıyor
+    public class CartItemModel // sepet elemanı, üzerinden CRUD işlemleri yapmayacağımız için Record'dan miras almıyor
     {
         public int ProductId { get; set; } // sepete eklenen ürünün Id'si
         public int UserId { get; set; } // sepete ürün ekleyen kullanıcının Id'si

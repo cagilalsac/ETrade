@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace Business.Models.Report
 {
     public class ReportItemModel // bu modeli sadece rapor için kullanacağımızdan ve üzerinden CRUD işlemleri yapmayacağımızdan
-                                 // RecordBase'den miras almamıza gerek yok
+                                 // Record'dan miras almamıza gerek yok
     {
 		#region Rapor view'ında gösterim için kullanacağımız özellikler
 		[DisplayName("Product Name")]

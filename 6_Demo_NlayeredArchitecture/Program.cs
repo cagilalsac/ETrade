@@ -13,13 +13,13 @@ myController.Index();
 #region Core Katmanı
 
     #region Records
-    public abstract class RecordBase
+    public abstract class Record
     {
     }
     #endregion
 
     #region DataAccess
-    public abstract class RepoBase<TEntity> where TEntity : RecordBase, new()
+    public abstract class RepoBase<TEntity> where TEntity : class, new()
     {
         public void Query()
         {
@@ -29,7 +29,7 @@ myController.Index();
     #endregion
 
     #region Business
-    public interface IService<TModel> where TModel : RecordBase, new()
+    public interface IService<TModel> where TModel : class, new()
     {
         void Query();
     }
@@ -42,13 +42,13 @@ myController.Index();
 #region DataAccess Katmanı
 
     #region Entities
-    public class MyEntity : RecordBase
+    public class MyEntity : Record
     {
     }
     #endregion
 
     #region Repositories
-    public class Repo<TEntity> : RepoBase<TEntity> where TEntity : RecordBase, new()
+    public class Repo<TEntity> : RepoBase<TEntity> where TEntity : class, new()
     {
     }
     #endregion
@@ -60,7 +60,7 @@ myController.Index();
 #region Business Katmanı
 
     #region Models
-    public class MyModel : RecordBase
+    public class MyModel : Record
     {
     }
     #endregion
