@@ -94,11 +94,25 @@
             @:<div class="row mb-3">
                 @:<label asp-for="@property.PropertyName" class="col-2 col-form-label"></label>
 				@:<div class="col-5">
-					@:<select asp-for="@property.PropertyName" class="form-select">
-						@:<option value="">-- Select --</option>
-					@:</select>
-					@:<span asp-validation-for="@property.PropertyName" class="text-danger"></span>
-				@:</div>
+                @:@@{
+                    @:var enumItems = Enum.GetValues(typeof(@property.PropertyName));
+                    @:for (int i = 0; i < enumItems.Length; i++) 
+                    @:{
+                    @:<div class="form-check form-check-inline pt-1">
+                        @:@@if ((int)Model.ProductionStatus == ((int)enumItems.GetValue(i))) 
+                        @:{
+                        @:<input asp-for="@property.PropertyName" type="radio" class="form-check-input" value="@@((int)enumItems.GetValue(i))" id="@@enumItems.GetValue(i).ToString()" checked />
+                        @:<label class="form-check-label" for="@@enumItems.GetValue(i).ToString()">@@enumItems.GetValue(i).ToString()</label>
+                        @:}
+                        @:else
+                        @:{
+                        @:<input asp-for="@property.PropertyName" type="radio" class="form-check-input" value="@@((int)enumItems.GetValue(i))" id="@@enumItems.GetValue(i).ToString()" />
+                        @:<label class="form-check-label" for="@@enumItems.GetValue(i).ToString()">@@enumItems.GetValue(i).ToString()</label>
+                        @:}
+                    @:</div>
+                    @:}
+                @:}
+                @:</div>
             @:</div>
                 }
                 else if (property.IsMultilineText)

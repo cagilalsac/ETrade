@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Templates\**" />
-    <Content Remove="Templates\**" />
-    <EmbeddedResource Remove="Templates\**" />
-    <None Remove="Templates\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
       <PrivateAssets>all</PrivateAssets>
@@ -43,6 +36,26 @@
     <Folder Include="Areas\Database\Models\" />
     <Folder Include="Areas\Database\Views\" />
     <Folder Include="Areas\Report\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<Compile Remove="Templates\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Templates\ControllerGenerator\ApiControllerWithActions.cshtml" />
+    <None Include="Templates\ControllerGenerator\ApiControllerWithContext.cshtml" />
+    <None Include="Templates\ControllerGenerator\ApiEmptyController.cshtml" />
+    <None Include="Templates\ControllerGenerator\ControllerWithActions.cshtml" />
+    <None Include="Templates\ControllerGenerator\EmptyController.cshtml" />
+    <None Include="Templates\ControllerGenerator\MvcControllerWithContext.cshtml" />
+    <None Include="Templates\ViewGenerator\Create.cshtml" />
+    <None Include="Templates\ViewGenerator\Delete.cshtml" />
+    <None Include="Templates\ViewGenerator\Details.cshtml" />
+    <None Include="Templates\ViewGenerator\Edit.cshtml" />
+    <None Include="Templates\ViewGenerator\Empty.cshtml" />
+    <None Include="Templates\ViewGenerator\List.cshtml" />
+    <None Include="Templates\ViewGenerator\_ValidationScriptsPartial.cshtml" />
   </ItemGroup>
 
 </Project>
