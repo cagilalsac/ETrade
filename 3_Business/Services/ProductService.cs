@@ -1,10 +1,9 @@
-﻿using Core.Services.Bases;
+﻿using Business.Models;
 using Core.Repositories.EntityFramework.Bases;
 using Core.Results;
 using Core.Results.Bases;
-using Business.Models;
+using Core.Services.Bases;
 using DataAccess.Entities;
-using DataAccess.Repositories;
 
 namespace Business.Services
 {

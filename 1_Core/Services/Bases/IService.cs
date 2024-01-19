@@ -1,17 +1,18 @@
-﻿using Core.Results.Bases;
+﻿using Core.Records.Bases;
+using Core.Results.Bases;
 
 namespace Core.Services.Bases
 {
     /// <summary>
-    /// TR: new'lenebilen referans tip olarak TModel üzerinden herhangi bir tip kullanacak ve kullanıcı ile etkileşimde bulunacak 
+    /// TR: new'lenebilen referans tip olarak TModel için Record'dan miras alan model tipini kullanacak ve kullanıcı ile etkileşimde bulunacak 
     /// model ile veritabanıyla bağlantılı entity dönüşümlerinin gerçekleştirildiği, aynı zamanda veri formatlama ve validasyon 
     /// gibi işlemlerin yapılabileceği tüm veritabanı servis sınıflarının interface'i.
-    /// EN: An interface, which can use any type through TModel as an instantiable reference type, for all database service classes 
+    /// EN: An interface, which can use only types inherited from Record through TModel as an instantiable reference type, for all database service classes 
     /// that allow interactions with the user through models and perform transformations between models and database related entities. 
     /// It also provides the ability to perform data formatting and validation processes.
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public interface IService<TModel> : IDisposable where TModel : class, new()
+    public interface IService<TModel> : IDisposable where TModel : Record, new()
     {
         /// <summary>
         /// TR: Enjekte edilen repository üzerinden entity tipindeki kayıtları modele projekte ederek getiren sorgu method tanımı.

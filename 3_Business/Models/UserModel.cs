@@ -32,8 +32,10 @@ namespace Business.Models
 		#region Entity Referans Özelliklerine Karşılık Kullanacağımız Özellikler
 		public RoleModel Role { get; set; }
 
+		// User ile UserDetail entity'leri arasında 1 to many ilişki olsa da biz User entity'sindeki UserDetails koleksiyonuna
+		// sadece tek bir UserDetail elemanı eklemek istediğimizden aşağıdaki şekilde UserDetail referans özelliğini yazıyoruz
 		public UserDetailModel UserDetail { get; set; } // kullanıcı detaylarını tek yerden yönetebilmek için hem burada hem de
-														// AccountRegisterModel'da referans özelliği olarak kullanıyoruz,
+														// AccountRegisterModel'da referans özelliği olarak kullanıyoruz
 		#endregion
 	}
 }

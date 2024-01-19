@@ -33,6 +33,6 @@ namespace Business.Models.Account
 
 
         public UserDetailModel UserDetail { get; set; } // kullanıcı detaylarını tek yerden yönetebilmek için hem burada hem de
-                                                        // UserModel'da referans özelliği olarak kullanıyoruz,
+                                                        // UserModel'da referans özelliği olarak kullanıyoruz
     }
 }

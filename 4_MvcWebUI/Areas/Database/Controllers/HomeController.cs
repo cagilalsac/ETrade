@@ -244,14 +244,30 @@ namespace MvcWebUI.Areas.Database.Controllers
                         IsActive = true,
                         Password = "cagil",
                         UserName = "cagil",
-						UserDetail = new UserDetail()
-						{
-							Address = "Cankaya",
-							CityId = _db.Cities.SingleOrDefault(c => c.Name == "Ankara").Id,
-							CountryId = _db.Countries.SingleOrDefault(c => c.Name == "Turkey").Id,
-							Email = "cagil@etrade.com",
-							Sex = Sex.Man
-						}
+
+
+
+                        // User UserDetail 1 to 1 ilişkisi için:
+						//UserDetail = new UserDetail()
+						//{
+						//	Address = "Cankaya",
+						//	CityId = _db.Cities.SingleOrDefault(c => c.Name == "Ankara").Id,
+						//	CountryId = _db.Countries.SingleOrDefault(c => c.Name == "Turkey").Id,
+						//	Email = "cagil@etrade.com",
+						//	Sex = Sex.Man
+						//}
+                        // User UserDetail 1 to many ilişkisi için:
+                        UserDetails = new List<UserDetail>()
+                        {
+                            new UserDetail()
+                            {
+                                Address = "Cankaya",
+                                CityId = _db.Cities.SingleOrDefault(c => c.Name == "Ankara").Id,
+                                CountryId = _db.Countries.SingleOrDefault(c => c.Name == "Turkey").Id,
+                                Email = "cagil@etrade.com",
+                                Sex = Sex.Man
+                            }
+                        }
 					}
                 }
             });
@@ -265,15 +281,31 @@ namespace MvcWebUI.Areas.Database.Controllers
                         IsActive = true,
                         Password = "leo",
                         UserName = "leo",
-						UserDetail = new UserDetail()
-						{
-							Address = "Hollywood",
-							CityId = _db.Cities.SingleOrDefault(c => c.Name == "Los Angeles").Id,
-							CountryId = _db.Countries.SingleOrDefault(c => c.Name == "United States").Id,
-							Email = "leo@etrade.com",
-							Sex = Sex.Man
-						}
-					}
+
+
+
+                        // User UserDetail 1 to 1 ilişkisi için:
+						//UserDetail = new UserDetail()
+						//{
+						//	Address = "Hollywood",
+						//	CityId = _db.Cities.SingleOrDefault(c => c.Name == "Los Angeles").Id,
+						//	CountryId = _db.Countries.SingleOrDefault(c => c.Name == "United States").Id,
+						//	Email = "leo@etrade.com",
+						//	Sex = Sex.Man
+						//}
+                        // User UserDetail 1 to many ilişkisi için:
+                        UserDetails = new List<UserDetail>()
+                        {
+                            new UserDetail()
+                            {
+                                Address = "Hollywood",
+                                CityId = _db.Cities.SingleOrDefault(c => c.Name == "Los Angeles").Id,
+                                CountryId = _db.Countries.SingleOrDefault(c => c.Name == "United States").Id,
+                                Email = "leo@etrade.com",
+                                Sex = Sex.Man
+                            }
+                        }
+                    }
                 }
             });
             #endregion

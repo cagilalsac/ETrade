@@ -49,7 +49,10 @@
                         sepetten eleman silme işlemini yapabilmek için RemoveFromCart action'ına ProductId'yi 
                         route value üzerinden parametre olarak gönderiyoruz
                     -->
-                    <a asp-action="RemoveFromCart" asp-route-productId="@item.ProductId"><i class="bi bi-cart-dash fs-5"></i> Remove from Cart</a>
+                    @if (item.ProductId != 0) // Total satırı için ProductId 0 olacak dolayısıyla 0 Id'si olmayan ürünler için link yazdırmalıyız
+                    {
+                        <a asp-action="RemoveFromCart" asp-route-productId="@item.ProductId"><i class="bi bi-cart-dash fs-5"></i> Remove from Cart</a>
+                    }
                 </td>
             </tr>
         }

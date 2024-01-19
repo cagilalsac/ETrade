@@ -22,6 +22,12 @@ namespace DataAccess.Entities
 
 		public Role	Role { get; set; }
 
-		public UserDetail UserDetail { get; set; } // 1 kullanıcının 0 veya 1 ilişkili kullanıcı detayı olabilir
-	}
+
+
+        // 1. yöntem: UserDetail entity'sindeki 1. yönteme göre
+        public List<UserDetail> UserDetails { get; set; } // 1 kullanıcının 0, 1 veya daha çok ilişkili kullanıcı detayı olabilir
+
+        // 2. yöntem: UserDetail entity'sindeki 2. yönteme göre
+        //public UserDetail UserDetail { get; set; } // 1 kullanıcının 0 veya 1 ilişkili kullanıcı detayı olabilir
+    }
 }

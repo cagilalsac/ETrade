@@ -34,11 +34,11 @@ namespace DataAccess.Contexts
         // eğer istenirse connection string DbContext'in OnConfiguring methodu ezilerek de tanımlanıp kullanılabilir, genelde bu kullanım tercih edilmez.
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
-        //    // 1. yöntem: Windows Authentication
-        //    //string connectionString = "server=.\\SQLEXPRESS;database=ETrade;trusted_connection=true;multipleactiveresultsets=true;trustservercertificate=true;";
+        //    // 1. yöntem: Windows Authentication (Microsoft SQL Server Express için connection string tanımı)
+        //    //string connectionString = "server=.\\SQLEXPRESS;database=ETradeDB;trusted_connection=true;multipleactiveresultsets=true;trustservercertificate=true;";
 
-        //    // 2. yöntem: SQL Server Authentication
-        //    string connectionString = "server=.\\SQLEXPRESS;database=ETrade;user id=sa;password=sa;multipleactiveresultsets=true;trustservercertificate=true;";
+        //    // 2. yöntem: SQL Server Authentication (Microsoft SQL Server Express için connection string tanımı)
+        //    string connectionString = "server=.\\SQLEXPRESS;database=ETradeDB;user id=sa;password=sa;multipleactiveresultsets=true;trustservercertificate=true;";
 
         //    optionsBuilder.UseSqlServer(connectionString);
         //}
@@ -51,7 +51,8 @@ namespace DataAccess.Contexts
                                                                            // default cascade'dir (bir kayıt silindiğinde ilişkili tablolarındaki verileri zincirleme otomatik silinir),
                                                                            // uygun olan ilişkileri no action yapmaktır ki ilişkiler bu method içerisinde değiştirilmelidir
         {
-            modelBuilder.Entity<ProductStore>().HasKey(ps => new { ps.ProductId, ps.StoreId });
+            // Many to many ilişki için composite primary key tanımlama II. yöntem: ProductStore entity'deki 2. yöntem üzerinden
+            //modelBuilder.Entity<ProductStore>().HasKey(ps => new { ps.ProductId, ps.StoreId });
             // bir üst satırda methodlar kullanıldıkça farklı methodların kullanılmasını sağlayan yapıya Fluent API denir,
             // SOLID prensipleri gereği aşağıdaki konfigürasyonu başka bir class üzerinden gerçekleştirmek daha uygun olacaktır,
             // ürün ve mağaza arasındaki many to many ilişki için ps delegesi üzerinden hem ProductStore entity'sindeki ProductId'yi hem de StoreId'yi beraber primary key yaptık
@@ -80,11 +81,23 @@ namespace DataAccess.Contexts
                 .HasForeignKey(u => u.RoleId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<UserDetail>() // kullanıcı kullanıcı detayı 1 to 1 ilişkisi için UserId foreign key'i UserDetail'da olduğundan kullanıcı ile ilişkisini oluşturuyoruz
+
+
+            // 1. yöntem: UserDetail entity'sindeki 1. yönteme göre
+            modelBuilder.Entity<UserDetail>() // kullanıcı kullanıcı detayı 1 to many ilişkisi için UserId foreign key'i UserDetail'da olduğundan kullanıcı ile ilişkisini oluşturuyoruz
                 .HasOne(ud => ud.User) // ud: user detail
-                .WithOne(u => u.UserDetail)
-                .HasForeignKey<UserDetail>(ud => ud.UserId) // eğer burada olduğu gibi lambda expression üzerinden delegenin özelliklerine ulaşamazsak delegenin generic tip'ini method adından sonra belirtmeliyiz
+                .WithMany(u => u.UserDetails)
+                .HasForeignKey(ud => ud.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            // 2. yöntem: UserDetail entity'sindeki 2. yönteme göre
+            //modelBuilder.Entity<UserDetail>() // kullanıcı kullanıcı detayı 1 to 1 ilişkisi için UserId foreign key'i UserDetail'da olduğundan kullanıcı ile ilişkisini oluşturuyoruz
+            //    .HasOne(ud => ud.User) // ud: user detail
+            //    .WithOne(u => u.UserDetail)
+            //    .HasForeignKey<UserDetail>(ud => ud.UserId) // eğer burada olduğu gibi lambda expression üzerinden delegenin özelliklerine ulaşamazsak delegenin generic tip'ini method adından sonra belirtmeliyiz
+            //    .OnDelete(DeleteBehavior.NoAction);
+
+
 
             modelBuilder.Entity<UserDetail>() // kullanıcı detayı ülke 1 to many ilişkisi için CountryId foreign key'i UserDetail'da olduğundan ülke ile ilişkisini oluşturuyoruz
 				.HasOne(ud => ud.Country) 

@@ -9,7 +9,10 @@ namespace DataAccess.Contexts
         public ETradeContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ETradeContext>();
-            optionsBuilder.UseSqlServer("server=.\\SQLEXPRESS;database=ETrade;user id=sa;password=sa;multipleactiveresultsets=true;trustservercertificate=true;");
+
+            // Microsoft SQL Server LocalDB için connection string tanımı
+            optionsBuilder.UseSqlServer("server=(localdb)\\mssqllocaldb;database=ETradeDB;trusted_connection=true;multipleactiveresultsets=true;trustservercertificate=true;");
+            
             // önce veritabanımızın (development veritabanı kullanılması daha uygundur) connection string'ini içeren bir obje oluşturuyoruz
 
             return new ETradeContext(optionsBuilder.Options); // daha sonra yukarıda oluşturduğumuz obje üzerinden ETradeContext tipinde bir obje dönüyoruz

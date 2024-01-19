@@ -1,17 +1,18 @@
-﻿using System.Linq.Expressions;
+﻿using Core.Records.Bases;
+using System.Linq.Expressions;
 
 namespace Core.Repositories.Bases
 {
     /// <summary>
-    /// TR: new'lenebilen referans tip olarak TEntity üzerinden herhangi bir tip kullanacak ve
+    /// TR: new'lenebilen referans tip olarak TEntity için Record'dan miras alan entity tipini kullanacak ve
     /// ileride oluşturulabilecek tüm repository'ler için temel olarak kullanılabilecek interface.
     /// Dispose işlemleri için IDisposable interface'ini implemente eder.
-    /// EN: An interface that can use any type through TEntity as an instantiable reference type.
+    /// EN: An interface that can use only types inherited from Record through TEntity as an instantiable reference type.
     /// This interface will be the base for all repositories which may be created in the future and
     /// implements the IDisposable interface for Dispose operations.
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public interface IRepoBase<TEntity> : IDisposable where TEntity : class, new()
+    public interface IRepoBase<TEntity> : IDisposable where TEntity : Record, new()
     {
         /// <summary>
         /// TR: Entity tipindeki kayıtları getiren sorgu method tanımı.
