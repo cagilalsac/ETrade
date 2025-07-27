@@ -1,0 +1,26 @@
+﻿@* Declaration of the type of the model object as List<CategoryQueryResponse> sent from Categories contoller's Index action. *@
+@model List<APP.Models.CategoryQueryResponse>
+
+<h1>Categories</h1>
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+    </tr>
+    @foreach (var category in Model) @* Model: the model object of type List<CategoryQueryResponse> *@
+    {
+        <tr>
+            <td>
+                @category.Name
+            </td>
+            <td>
+                @category.Description
+            </td>
+        </tr>
+    }
+</table>
