@@ -11,7 +11,7 @@ namespace APP.Services
         {
         }
 
-        public List<CategoryQueryResponse> GetList(CategoryRequest filterRequest = null)
+        public List<CategoryQueryResponse> GetList()
         {
             return Query().Select(entity => new CategoryQueryResponse()
             {

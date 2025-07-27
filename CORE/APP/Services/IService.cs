@@ -8,7 +8,7 @@ namespace CORE.APP.Services
     /// for querying, creating, updating, and deleting entities in a type-safe and reusable way.
     /// </summary>
     /// <typeparam name="TRequest">
-    /// The type of the request model used for input operations (e.g., Create, Update, or filtering). 
+    /// The type of the request model used for input operations (e.g., Create or Update). 
     /// Must inherit from <see cref="Request"/> and have a parameterless constructor.
     /// </typeparam>
     /// <typeparam name="TResponse">
@@ -19,16 +19,11 @@ namespace CORE.APP.Services
     {
         /// <summary>
         /// Retrieves a list of items from the data source.
-        /// If a filter request is provided, the results will be filtered accordingly.
         /// </summary>
-        /// <param name="filterRequest">
-        /// Optional filtering criteria, such as search text, pagination, or sorting. 
-        /// If <c>null</c>, all items are returned without filtering.
-        /// </param>
         /// <returns>
-        /// A list of <typeparamref name="TResponse"/> objects representing the matched or all records.
+        /// A list of <typeparamref name="TResponse"/> objects representing all records.
         /// </returns>
-        public List<TResponse> GetList(TRequest filterRequest = default);
+        public List<TResponse> GetList();
 
         /// <summary>
         /// Retrieves a single item by its unique identifier.
