@@ -35,6 +35,15 @@ namespace CORE.APP.Services
         public TResponse GetItem(int id);
 
         /// <summary>
+        /// Retrieves a single item by its unique identifier.
+        /// </summary>
+        /// <param name="id">The unique identifier of the item to retrieve.</param>
+        /// <returns>
+        /// A <typeparamref name="TRequest"/> object representing the specified item.
+        /// </returns>
+        public TRequest GetItemForEdit(int id);
+
+        /// <summary>
         /// Creates a new item in the data source using the provided request data.
         /// </summary>
         /// <param name="request">The request object containing the data for the new entity.</param>

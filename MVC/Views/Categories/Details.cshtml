@@ -1,0 +1,24 @@
+﻿@model CategoryQueryResponse
+
+@{
+    ViewBag.Title = "Category Details";
+}
+
+<h1>@ViewBag.Title</h1>
+<hr />
+<dl>
+    <dt>
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Description)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Description)
+    </dd>
+</dl>
+<hr />
+<a asp-action="List" asp-route-id="@Model.Id">Back to List</a>

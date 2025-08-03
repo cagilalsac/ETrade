@@ -1,0 +1,59 @@
+﻿@* @ is used to write C# code in a view with Razor syntax. *@
+
+@* Way 1: We can't use the Category model's property names for the DisplayNameFor HTML Helper parameters if we define the model type as List. *@
+@* @model List<APP.Models.CategoryQueryResponse> *@
+@* Way 2: We can use the Category model's property names for the DisplayNameFor HTML Helper parameters if we define the model type as IEnumerable. *@
+@* Declaration of the type of the model object with the class namespace as IEnumerable<CategoryQueryResponse> sent from Categories contoller's Index action. *@
+@* @model IEnumerable<APP.Models.CategoryQueryResponse> *@
+@* Way 3: CategoryResponse class namespace which is APP.Models must be defined in Views\_ViewImports.cshtml *@
+@model IEnumerable<CategoryQueryResponse>
+
+@{
+    @* 
+    For showing "Categroy List" in the title tag of the head tag in Views\Shared\_Layout.cshtml and h1 tag of this view,
+    ViewBag and ViewData are the same collection (dictionary) 
+    *@
+    @* Way 1: *@
+    // ViewData["Title"] = "Category List";
+    @* Way 2: *@
+    ViewBag.Title = "Category List";
+}
+
+@* Way 1: *@
+@* <h1>Categories</h1> *@
+@* Way 2: *@
+<h1>@ViewBag.Title</h1>
+
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            @* Way 1: *@
+            @* Name *@
+            @* Way 2: *@
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (APP.Models.CategoryQueryResponse categoryItem in Model) @* Model: the model object of type IEnumerable<CategoryQueryResponse> *@
+    {
+        <tr>
+            <td>
+                @* Way 1: *@
+                @* @category.Name *@
+                @* Way 2: *@
+                @Html.DisplayFor(model => categoryItem.Name)
+            </td>
+            <td>
+                @* Way 1: HTML Helper: *@
+                @* @Html.ActionLink("Details", "Details", "Categories", new { id = categoryItem.Id }) *@
+                @* Way 2: HTML Helper: *@
+                @* @Html.ActionLink("Details", "Details", new { id = categoryItem.Id }) *@
+                @* Way 3: Tag Helper: *@
+                @* <a asp-action="Details" asp-controller="Categories" asp-route-id="@categoryItem.Id">Details</a> *@
+                @* Way 4: Tag Helper: *@
+                <a asp-action="Details" asp-route-id="@categoryItem.Id">Details</a>
+            </td>
+        </tr>
+    }
+</table>
