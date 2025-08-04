@@ -1,0 +1,54 @@
+﻿@model CategoryRequest
+
+@{
+    ViewBag.Title = "Create Category";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+@* Way 1: HTML Helper *@
+@* @using (Html.BeginForm("Create", "Categories", FormMethod.Post)) { *@
+@* Way 2: HTML Helper: Default method is post *@
+@* @using (Html.BeginForm("Create", "Categories")) { *@
+@* Way 3: HTML Helper: Controller parameter is the Categories controller by default, 
+which this Create view is returned from the Categories controller's Create action *@
+@* @using (Html.BeginForm("Create")) { *@
+@* Way 4: Tag Helper *@
+@* <form asp-action="Create" asp-controller="Categories" method="post"> *@
+@* Way 5: Tag Helper: Default method is post *@
+@* <form asp-action="Create" asp-controller="Categories"> *@
+@* Way 6: Tag Helper: asp-controller value is the Categories controller by default, 
+which this Create view is returned from the Categories controller's Create action *@
+<form asp-action="Create">
+
+    @Html.AntiForgeryToken() @* ensures that Categories controller's Create action receives the request only from this Create view *@
+    <div class="row mb-3">
+        <div class="col-2">
+            <label asp-for="Name"></label>
+        </div>
+        <div class="col-10">
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2">
+            <label asp-for="Description"></label>
+        </div>
+        <div class="col-10">
+            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="offset-2 col-10">
+            <button type="submit" class="btn btn-success">Save</button>
+            &nbsp;
+            <button type="reset" class="btn btn-warning">Reset</button>
+        </div>
+    </div>
+</form>
+@* Way 1, 2, 3: End of BeginForm HTML Helper's using *@
+@* } *@
+
+<a asp-action="List">Back to List</a>

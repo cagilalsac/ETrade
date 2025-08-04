@@ -57,3 +57,23 @@
         </tr>
     }
 </table>
+<a asp-action="Create">Create Category</a>
+
+@* Some commonly used HTML Helpers: *@
+@*
+| HTML Helper                    | Description                                                                                  |
+| ------------------------------ | -------------------------------------------------------------------------------------------- |
+| `@Html.TextBoxFor()`           | Creates a text input (`<input type="text">`) bound to a model property.                      |
+| `@Html.PasswordFor()`          | Creates a password input (`<input type="password">`) for a model property.                   |
+| `@Html.TextAreaFor()`          | Generates a `<textarea>` for a model property.                                               |
+| `@Html.EditorFor()`            | Automatically chooses the correct input type based on the property's data type and metadata. |
+| `@Html.HiddenFor()`            | Creates a hidden input field (`<input type="hidden">`) for a model property.                 |
+| `@Html.CheckBoxFor()`          | Generates a checkbox (`<input type="checkbox">`) bound to a boolean model property.          |
+| `@Html.RadioButtonFor()`       | Creates a radio button input for a model property.                                           |
+| `@Html.DropDownListFor()`      | Renders a `<select>` dropdown for a model property, based on a provided `SelectList`.        |
+| `@Html.ListBoxFor()`           | Renders a multi-select list box bound to a collection property.                              |
+| `@Html.DisplayFor()`           | Displays the value of a model property as read-only content.                                 |
+| `@Html.DisplayNameFor()`       | Gets the display name for the model property using its metadata.                             |
+| `@Html.LabelFor()`             | Generates a `<label>` tag with the name of the model property.                               |
+| `@Html.ValidationMessageFor()` | Shows a validation message for a specific property, if any validation error exists.          |
+*@
