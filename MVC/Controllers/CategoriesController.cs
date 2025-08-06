@@ -82,9 +82,6 @@ namespace MVC.Controllers
                 var response = _service.Create(request);
                 if (response.IsSuccessful)
                 {
-                    // Carries extra data such as operation result message to the view if a redirection occurs as below.
-                    TempData["Message"] = response.Message;
-
                     // Way 1: Redirect to the given action of the controller
                     // return RedirectToAction("List");
                     // Way 2: Redirect to the given action of the given controller
@@ -93,7 +90,7 @@ namespace MVC.Controllers
                     return RedirectToAction(nameof(List));
                 }
 
-                // Show extra service-level error to user
+                // Show extra service-level error to the user in validation summary of the view
                 ModelState.AddModelError("", response.Message);
             }
 
@@ -102,7 +99,7 @@ namespace MVC.Controllers
         }
 
         /// <summary>
-        /// Displays the edit form for an existing category.
+        /// Displays the edit form for an existing category. Edit view will be scaffolded.
         /// </summary>
         /// <returns>The Edit view.</returns>
         // GET Route: Categories/Edit/1
@@ -130,7 +127,6 @@ namespace MVC.Controllers
                 var response = _service.Update(request);
                 if (response.IsSuccessful)
                 {
-                    TempData["Message"] = response.Message;
                     return RedirectToAction(nameof(List));
                 }
 
@@ -141,7 +137,7 @@ namespace MVC.Controllers
         }
 
         /// <summary>
-        /// Displays the delete confirmation page for a category.
+        /// Displays the delete confirmation page for a category. Delete view will be scaffolded.
         /// </summary>
         /// <param name="id">The ID of the category to be deleted.</param>
         /// <returns>The Delete view with the category details.</returns>
@@ -164,7 +160,6 @@ namespace MVC.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             var response = _service.Delete(id);
-            TempData["Message"] = response.Message;
             return RedirectToAction(nameof(List));
         }
     }

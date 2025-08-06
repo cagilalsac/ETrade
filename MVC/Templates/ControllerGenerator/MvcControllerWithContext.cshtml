@@ -108,6 +108,11 @@ namespace @Model.ControllerNamespace
 
         private void SetViewData()
         {
+            /* 
+            ViewBag and ViewData are the same collection (dictionary).
+            They carry extra data other than the model from a controller action to its view, or between views.
+            */
+
             // Related items service logic to set ViewData (Id and Name parameters may need to be changed in the SelectList constructor according to the model):
 @{
     foreach (var property in relatedProperties.Values)
@@ -118,6 +123,15 @@ namespace @Model.ControllerNamespace
             
             /* Can be uncommented and used for many to many relationships. "Entity" may be replaced with the related entiy name in the controller and views. */
             //ViewBag.EntityIds = new MultiSelectList(_EntityService.GetList(), "Id", "Name");
+        }
+
+        private void SetTempData(string message, string key = "Message")
+        {
+            /*
+            TempData is used to carry extra data to the redirected controller action's view.
+            */
+
+            TempData[key] = message;
         }
 
         // GET: @routePrefix
@@ -159,7 +173,7 @@ namespace @Model.ControllerNamespace
                 @:if (result.IsSuccessful)
 }  
                 {
-                    TempData["Message"] = result.Message;
+                    SetTempData(result.Message);
                     return RedirectToAction(nameof(Details), new { id = result.Id });
                 }
                 ModelState.AddModelError("", result.Message);
@@ -189,7 +203,7 @@ namespace @Model.ControllerNamespace
                 @:if (result.IsSuccessful)
 }
                 {
-                    TempData["Message"] = result.Message;
+                    SetTempData(result.Message);
                     return RedirectToAction(nameof(Details), new { id = result.Id });
                 }
                 ModelState.AddModelError("", result.Message);
@@ -212,7 +226,7 @@ namespace @Model.ControllerNamespace
         {
             // Delete item service logic:
             var result = @("_" + serviceAbstractName).Delete(id);
-            TempData["Message"] = result.Message;
+            SetTempData(result.Message);
             return RedirectToAction(nameof(Index));
         }
 	}

@@ -23,6 +23,11 @@
     else if (Model.IsLayoutPageSelected)
     {
 @:@@{
+    @:/*
+    @:ViewBag and ViewData are the same collection (dictionary).
+    @:They carry extra data other than the model from a controller action to its view, or between views.
+    @:The value assigned will be shown in Views\Shared\_Layout.cshtml view's title tag of the head tag.
+    @:*/
     @:ViewData["Title"] = "@viewDataTypeName Create";
         if (!string.IsNullOrEmpty(Model.LayoutPageFile))
         {
@@ -54,6 +59,9 @@
 @:<div class="@@containerDivClass">
     @:@@if (TempData["Message"] is not null)
     @:{
+    @:/*
+    @:TempData is used to carry extra data to the redirected controller action's view.
+    @:*/
     @:<p class="text-danger">
         @:@@TempData["Message"]
     @:</p>

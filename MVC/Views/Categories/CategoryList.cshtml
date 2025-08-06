@@ -8,22 +8,7 @@
 @* Way 3: CategoryResponse class namespace which is APP.Models must be defined in Views\_ViewImports.cshtml *@
 @model IEnumerable<CategoryQueryResponse>
 
-@{
-    @* 
-    For showing "Categroy List" in the title tag of the head tag in Views\Shared\_Layout.cshtml and h1 tag of this view,
-    ViewBag and ViewData are the same collection (dictionary) 
-    *@
-    @* Way 1: *@
-    // ViewData["Title"] = "Category List";
-    @* Way 2: *@
-    ViewBag.Title = "Category List";
-}
-
-@* Way 1: *@
-@* <h1>Categories</h1> *@
-@* Way 2: *@
-<h1>@ViewBag.Title</h1>
-
+<h1>Categories</h1>
 <hr />
 <table class="table">
     <tr>
@@ -32,6 +17,9 @@
             @* Name *@
             @* Way 2: *@
             @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
         </th>
         <th></th>
     </tr>
@@ -45,6 +33,9 @@
                 @Html.DisplayFor(model => categoryItem.Name)
             </td>
             <td>
+                @Html.DisplayFor(model => categoryItem.Description)
+            </td>
+            <td>
                 @* Way 1: HTML Helper: *@
                 @* @Html.ActionLink("Details", "Details", "Categories", new { id = categoryItem.Id }) *@
                 @* Way 2: HTML Helper: *@
@@ -53,6 +44,8 @@
                 @* <a asp-action="Details" asp-controller="Categories" asp-route-id="@categoryItem.Id">Details</a> *@
                 @* Way 4: Tag Helper: *@
                 <a asp-action="Details" asp-route-id="@categoryItem.Id">Details</a>
+                &nbsp;|&nbsp;                
+                <a asp-action="Edit" asp-route-id="@categoryItem.Id">Edit</a>
             </td>
         </tr>
     }
