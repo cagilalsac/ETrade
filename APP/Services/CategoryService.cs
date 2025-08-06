@@ -100,7 +100,7 @@ namespace APP.Services
             _db.Add(entity);
             _db.SaveChanges();
 
-            return Success("Category created successfully.");
+            return Success("Category created successfully.", entity.Id);
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace APP.Services
             _db.Update(entity);
             _db.SaveChanges();
 
-            return Success("Category updated successfully.");
+            return Success("Category updated successfully.", entity.Id);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace APP.Services
             _db.Categories.Remove(entity);
             _db.SaveChanges();
 
-            return Success("Category deleted successfully.");
+            return Success("Category deleted successfully.", entity.Id);
         }
     }
 }

@@ -160,7 +160,7 @@ namespace @Model.ControllerNamespace
 }  
                 {
                     TempData["Message"] = result.Message;
-                    return RedirectToAction(nameof(Details), new { id = @(Model.ModelVariable).Id });
+                    return RedirectToAction(nameof(Details), new { id = result.Id });
                 }
                 ModelState.AddModelError("", result.Message);
             }
@@ -190,7 +190,7 @@ namespace @Model.ControllerNamespace
 }
                 {
                     TempData["Message"] = result.Message;
-                    return RedirectToAction(nameof(Details), new { id = @(Model.ModelVariable).Id });
+                    return RedirectToAction(nameof(Details), new { id = result.Id });
                 }
                 ModelState.AddModelError("", result.Message);
             }
