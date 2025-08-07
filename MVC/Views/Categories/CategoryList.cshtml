@@ -46,11 +46,17 @@
                 <a asp-action="Details" asp-route-id="@categoryItem.Id">Details</a>
                 &nbsp;|&nbsp;                
                 <a asp-action="Edit" asp-route-id="@categoryItem.Id">Edit</a>
+                &nbsp;|&nbsp;
+                <a asp-action="Delete" asp-route-id="@categoryItem.Id">Delete</a>
             </td>
         </tr>
     }
 </table>
-<a asp-action="Create">Create Category</a>
+
+<a asp-action="Create">Create Category</a><hr />
+
+@* Displaying the delete post action's result message: *@
+@TempData["Result"]
 
 @* Some commonly used HTML Helpers: *@
 @*

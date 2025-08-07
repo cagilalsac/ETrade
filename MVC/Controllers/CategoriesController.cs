@@ -29,7 +29,19 @@ namespace MVC.Controllers
         /// <returns>The CategoryList view with the list of categories.</returns>
         // GET Route: Categories/List
         //[HttpGet] // Optional to write because the default is HttpGet if not written.
-        public IActionResult List()
+        /*
+        IActionResult
+        |
+        ActionResult (implements IActionResult)
+        |
+        ViewResult - ContentResult - RedirectResults - HttpStatusCodeResults - JsonResult - etc. (inherits from ActionResult)
+        */
+        // Way 1:
+        //public ViewResult List() // can only return ViewResult
+        // Way 2:
+        //public ActionResult List() // can return ViewResult, ContentResult, JsonResult, etc.
+        // Way 3:
+        public IActionResult List() // can return ViewResult, ContentResult, JsonResult, etc.
         {
             var list = _service.GetList();
 
@@ -145,6 +157,13 @@ namespace MVC.Controllers
         public IActionResult Delete(int id)
         {
             var item = _service.GetItem(id);
+
+            /*
+            ViewBag and ViewData are the same dictionary, and they carry extra data other than the model from a controller action to its view, or between views.
+            The value set for the key Question will be carried to the view that this action returns. 
+            */
+            ViewBag.Question = $"Are you sure you want to delete the category named \"{item.Name}\"?";
+
             return View(item);
         }
 
@@ -160,6 +179,14 @@ namespace MVC.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             var response = _service.Delete(id);
+
+            /*
+            TempData is used to carry extra data to the redirected action's view. 
+            If redirection occurs, use TempData. If view is returned, use ViewData or ViewBag.
+            TempData["Result"] must be written in CategoryList view returned by the List action to show the delete result message.
+            */
+            TempData["Result"] = response.Message;
+
             return RedirectToAction(nameof(List));
         }
     }

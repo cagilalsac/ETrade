@@ -139,15 +139,20 @@ namespace APP.Services
         public CommandResponse Delete(int id)
         {
             var entity = _db.Categories
-                .Include(entity => entity.Products)
+                .Include(entity => entity.Products) // get the relational product data related to this category (Entity Framework Eager Loading)
                 .SingleOrDefault(entity => entity.Id == id);
 
             if (entity is null)
                 return Error("Category not found!");
 
-            // Remove all related products before deleting the category
-            _db.Products.RemoveRange(entity.Products);
+            // Relational Products must be included to the query
+            // Way 1: Remove all related products before deleting the category
+            //_db.Products.RemoveRange(entity.Products);
+            // Way 2: Check if there are any related products to the category entity before deleting, if any don't delete the category entity
+            if (entity.Products.Count > 0) // if (entity.Products.Any()) can also be written
+                return Error("Category can't be deleted because it has relational products!");
 
+            // Delete the category
             _db.Categories.Remove(entity);
             _db.SaveChanges();
 
