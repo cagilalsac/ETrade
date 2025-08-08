@@ -2,7 +2,7 @@
 
 # 1) CORE Project:
 1.1) Install Microsoft.EntityFrameworkCore NuGet Package
-1.2) Create (https://github.com/cagilalsac/ETrade/blob/main/CORE/APP/Domain/Entity.cs)[Entity.cs]
+1.2) Create [Entity.cs](https://github.com/cagilalsac/ETrade/blob/main/CORE/APP/Domain/Entity.cs)
 1.3) Create (https://github.com/cagilalsac/ETrade/blob/main/CORE/APP/Models/Request.cs)(Request.cs)
 1.4) Create (https://github.com/cagilalsac/ETrade/blob/main/CORE/APP/Models/QueryResponse.cs)(QueryResponse.cs)
 1.5) Create (https://github.com/cagilalsac/ETrade/blob/main/CORE/APP/Models/CommandResponse.cs)(CommandResponse.cs)
