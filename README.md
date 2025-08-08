@@ -6,7 +6,7 @@
 1.3) Create [Request.cs](https://github.com/cagilalsac/ETrade/blob/main/CORE/APP/Models/Request.cs)\
 1.4) Create [QueryResponse.cs](https://github.com/cagilalsac/ETrade/blob/main/CORE/APP/Models/QueryResponse.cs)\
 1.5) Create [CommandResponse.cs](https://github.com/cagilalsac/ETrade/blob/main/CORE/APP/Models/CommandResponse.cs)\
-1.6) Create [ServiceBase.cs](https://github.com/cagilalsac/ETrade/blob/main/CORE/APP/Services/ServiceBase.cs)
+1.6) Create [ServiceBase.cs](https://github.com/cagilalsac/ETrade/blob/main/CORE/APP/Services/ServiceBase.cs)\
 # 2) APP Project:
 2.1) Add project reference of the CORE Project
 2.2.1) If using SQL Server install Microsoft.EntityFrameworkCore.SqlServer NuGet Package
