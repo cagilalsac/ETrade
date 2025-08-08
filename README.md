@@ -20,12 +20,12 @@
 3.3) Add builder.Services.AddDbContext method in the IoC Container of the [Program.cs](https://github.com/cagilalsac/ETrade/blob/main/MVC/Program.cs) file\
 3.4) Run "add-migration v1" in Package Manager Console after selecting APP Project as the default project\
 3.5) Run "update-database" to create the database in (LocalDB)\MSSQLLocalDB database server or SQLite database file
-# 4) APP Project:
+# 4) APP Project (Category):
 4.1) Create [CategoryRequest.cs](https://github.com/cagilalsac/ETrade/blob/main/APP/Models/CategoryRequest.cs)\
 4.2) Create [CategoryQueryResponse.cs](https://github.com/cagilalsac/ETrade/blob/main/APP/Models/CategoryQueryResponse.cs)\
 4.3) Create [DbService.cs](https://github.com/cagilalsac/ETrade/blob/main/APP/Services/DbService.cs)\
 4.4) Create [CategoryService.cs](https://github.com/cagilalsac/ETrade/blob/main/APP/Services/CategoryService.cs)
-# 5) MVC Project:
+# 5) MVC Project (Category):
 5.1) Create [CategoriesController.cs](https://github.com/cagilalsac/ETrade/blob/main/MVC/Controllers/CategoriesController.cs)\
 5.2) Create [CategoryList.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Categories/CategoryList.cshtml)\
 5.3) Create [Details.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Categories/Details.cshtml)\
