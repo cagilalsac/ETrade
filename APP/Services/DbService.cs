@@ -8,7 +8,7 @@ namespace APP.Services
     /// Provides a base implementation for services that require access to the ETrade database context.
     /// Inherits from <see cref="ServiceBase"/> and supplies shared infrastructure to derived service classes.
     /// </summary>
-    public abstract class ETradeDbService : ServiceBase
+    public abstract class DbService : ServiceBase
     {
         /// <summary>
         /// The protected database context instance used by derived services to access database entities.
@@ -16,10 +16,10 @@ namespace APP.Services
         protected readonly Db _db;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ETradeDbService"/> class with the specified database context.
+        /// Initializes a new instance of the <see cref="DbService"/> class with the specified database context.
         /// </summary>
         /// <param name="db">The database context to be used by the service.</param>
-        protected ETradeDbService(Db db)
+        protected DbService(Db db)
         {
             _db = db;
 

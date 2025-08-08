@@ -10,7 +10,7 @@ namespace APP.Services
     /// Service class responsible for handling CRUD operations for Category entities.
     /// Implements the IService interface using CategoryRequest and CategoryQueryResponse types.
     /// </summary>
-    public class CategoryService : ETradeDbService, IService<CategoryRequest, CategoryQueryResponse>
+    public class CategoryService : DbService, IService<CategoryRequest, CategoryQueryResponse>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoryService"/> class with the provided database context.

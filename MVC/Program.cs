@@ -14,9 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 // ---------------------------------------------------
 // Registers the application's DbContext (named 'Db') with the dependency injection container.
 // Configures the DbContext to use SQL Server as the database provider.
-// The connection string named "ETradeDB" is retrieved from the application's configuration settings (e.g., appsettings.json).
+// The connection string named "Db" is retrieved from the application's configuration settings (e.g., appsettings.json).
 // This setup enables the application to connect to the specified SQL Server database when interacting with entity sets.
-builder.Services.AddDbContext<Db>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ETradeDB")));
+builder.Services.AddDbContext<Db>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Db")));
 
 // Registers the CategoryService with the dependency injection container as a scoped service.
 // It maps the generic interface IService<CategoryRequest, CategoryQueryResponse> to the concrete implementation CategoryService.
