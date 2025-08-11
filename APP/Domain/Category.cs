@@ -12,11 +12,12 @@ namespace APP.Domain
     {
         /// <summary>
         /// Gets or sets the name of the category.
-        /// This property is required and must be between 3 and 100 characters in length.
+        /// This property is required and must be maximum 100 characters in length.
         /// Used to identify and label product categories.
+        /// Required and StringLength attributes (data annotations) for string properties are commonly used in entities.
         /// </summary>
         [Required]
-        [StringLength(100, MinimumLength = 3)] // Alternative ways shown in comments
+        [StringLength(100)]
         public string Name { get; set; }
 
         /// <summary>

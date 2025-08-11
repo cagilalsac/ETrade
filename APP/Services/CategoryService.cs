@@ -8,9 +8,9 @@ namespace APP.Services
 {
     /// <summary>
     /// Service class responsible for handling CRUD operations for Category entities.
-    /// Implements the IService interface using CategoryRequest and CategoryQueryResponse types.
+    /// Implements the IService interface using CategoryRequest and CategoryResponse types.
     /// </summary>
-    public class CategoryService : DbService, IService<CategoryRequest, CategoryQueryResponse>
+    public class CategoryService : DbService, IService<CategoryRequest, CategoryResponse>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoryService"/> class with the provided database context.
@@ -23,16 +23,16 @@ namespace APP.Services
         /// <summary>
         /// Retrieves a list of all categories ordered by their name.
         /// </summary>
-        /// <returns>A list of <see cref="CategoryQueryResponse"/> objects representing the categories.</returns>
-        public List<CategoryQueryResponse> GetList()
+        /// <returns>A list of <see cref="CategoryResponse"/> objects representing the categories.</returns>
+        public List<CategoryResponse> GetList()
         {
             return _db.Categories
-                .OrderBy(entity => entity.Name)
-                .Select(entity => new CategoryQueryResponse()
+                .OrderBy(categoryEntity => categoryEntity.Name)
+                .Select(categoryEntity => new CategoryResponse()
                 {
-                    Id = entity.Id,
-                    Name = entity.Name,
-                    Description = entity.Description
+                    Id = categoryEntity.Id,
+                    Name = categoryEntity.Name,
+                    Description = categoryEntity.Description
                 }).ToList();
         }
 
@@ -41,15 +41,54 @@ namespace APP.Services
         /// </summary>
         /// <param name="id">The unique identifier of the category.</param>
         /// <returns>
-        /// A <see cref="CategoryQueryResponse"/> object if the category is found; otherwise, <c>null</c>.
+        /// A <see cref="CategoryResponse"/> object if the category is found; otherwise, <c>null</c>.
         /// </returns>
-        public CategoryQueryResponse GetItem(int id)
+        public CategoryResponse GetItem(int id)
         {
-            var entity = _db.Categories.SingleOrDefault(entity => entity.Id == id);
+            // Way 1:
+            //Category entity = _db.Categories.SingleOrDefault(categoryEntity => categoryEntity.Id == id);
+            // Way 2:
+            var entity = _db.Categories.SingleOrDefault(categoryEntity => categoryEntity.Id == id);
+
+            /*
+            Find: Finds an entity with the given primary key value.
+            Returns null if not found. Uses the context's cache before querying the database.
+            Example: var product = dbContext.Products.Find(5);
+            
+            Single: Returns the only element that matches the specified condition.
+            Throws an exception if no element or more than one element is found.
+            Example: var product = dbContext.Products.Single(p => p.Id == 5);
+            
+            SingleOrDefault: Returns the only element that matches the specified condition, or null if no such element exists.
+            Throws an exception if more than one element is found.
+            Example: var product = dbContext.Products.SingleOrDefault(p => p.Id == 5);
+            
+            First: Returns the first element that matches the specified condition.
+            Throws an exception if no element is found.
+            Example: var product = dbContext.Products.First();
+            Example: var product = dbContext.Products.First(p => p.IsContinued);
+            
+            FirstOrDefault: Returns the first element that matches the specified condition, or null if no such element exists.
+            Example: var product = dbContext.Products.FirstOrDefault();
+            Example: var product = dbContext.Products.FirstOrDefault(p => p.IsContinued);
+            
+            Last: Returns the last element that matches the specified condition.
+            Throws an exception if no element is found. Usually requires an OrderBy clause.
+            Example: var product = dbContext.Products.Last();
+            Example: var product = dbContext.Products.OrderBy(p => p.Id).Last(p => p.IsContinued);
+            
+            LastOrDefault: Returns the last element that matches the specified condition, or null if no such element exists.
+            Usually requires an OrderBy clause.
+            Example: var product = dbContext.Products.LastOrDefault();
+            Example: var product = dbContext.Products.OrderBy(p => p.Id).LastOrDefault(p => p.IsContinued);
+
+            SingleOrDefault is generally preferred.
+            */
+
             if (entity is null)
                 return null;
 
-            return new CategoryQueryResponse()
+            return new CategoryResponse()
             {
                 Id = entity.Id,
                 Name = entity.Name,
@@ -66,7 +105,7 @@ namespace APP.Services
         /// </returns>
         public CategoryRequest GetItemForEdit(int id)
         {
-            var entity = _db.Categories.SingleOrDefault(entity => entity.Id == id);
+            var entity = _db.Categories.SingleOrDefault(categoryEntity => categoryEntity.Id == id);
             if (entity is null)
                 return null;
 
@@ -88,12 +127,21 @@ namespace APP.Services
         /// </returns>
         public CommandResponse Create(CategoryRequest request)
         {
-            if (_db.Categories.Any(entity => entity.Name.ToUpper() == request.Name.ToUpper().Trim()))
+            // Way 1:
+            //var existingEntity = _db.Categories.SingleOrDefault(categoryEntity => categoryEntity.Name.ToUpper() == request.Name.ToUpper().Trim());
+            //if (existingEntity is null) // if (existingEntity == null) can also be written
+            //    return Error("Category with the same name exists!");
+            // Way 2: ToLower string method can also be used for both sides instead of ToUpper
+            if (_db.Categories.Any(categoryEntity => categoryEntity.Name.ToUpper() == request.Name.ToUpper().Trim()))
                 return Error("Category with the same name exists!");
 
             var entity = new Category()
             {
-                Name = request.Name?.Trim(),
+                // Way 1: can be used since request.Name is required and cannot be null
+                //Name = request.Name.Trim(),
+                // Way 2:
+                Name = request.Name?.Trim(), // if request.Name value is null assign null, else assign the trimmed value
+
                 Description = request.Description?.Trim()
             };
 
@@ -113,10 +161,10 @@ namespace APP.Services
         /// </returns>
         public CommandResponse Update(CategoryRequest request)
         {
-            if (_db.Categories.Any(entity => entity.Id != request.Id && entity.Name.ToUpper() == request.Name.ToUpper().Trim()))
+            if (_db.Categories.Any(categoryEntity => categoryEntity.Id != request.Id && categoryEntity.Name.ToUpper() == request.Name.ToUpper().Trim()))
                 return Error("Category with the same name exists!");
 
-            var entity = _db.Categories.SingleOrDefault(entity => entity.Id == request.Id);
+            var entity = _db.Categories.SingleOrDefault(categoryEntity => categoryEntity.Id == request.Id);
             if (entity is null)
                 return Error("Category not found!");
 
@@ -139,8 +187,8 @@ namespace APP.Services
         public CommandResponse Delete(int id)
         {
             var entity = _db.Categories
-                .Include(entity => entity.Products) // get the relational product data related to this category (Entity Framework Eager Loading)
-                .SingleOrDefault(entity => entity.Id == id);
+                .Include(categoryEntity => categoryEntity.Products) // get the relational product data related to this category (Entity Framework Eager Loading)
+                .SingleOrDefault(categoryEntity => categoryEntity.Id == id);
 
             if (entity is null)
                 return Error("Category not found!");
@@ -156,7 +204,7 @@ namespace APP.Services
             _db.Categories.Remove(entity);
             _db.SaveChanges();
 
-            return Success("Category deleted successfully.", entity.Id);
+            return Success("Category deleted successfully.");
         }
     }
 }

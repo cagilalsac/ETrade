@@ -1,4 +1,4 @@
-﻿@model CategoryResponse
+﻿@model ProductResponse
 
 @* Generated from Custom MVC Template. *@
 @* Model namespace using directive should be added to _ViewImports.cshtml. *@
@@ -12,7 +12,7 @@
     They carry extra data other than the model from a controller action to its view, or between views.
     The value assigned will be shown in Views\Shared\_Layout.cshtml view's title tag of the head tag.
     */
-    ViewData["Title"] = "Category Delete";
+    ViewData["Title"] = "Product Details";
 }
 
 <div class="@containerDivClass">
@@ -32,11 +32,6 @@
         @TempData["Message"]
     </p>
     }
-
-    @* Displaying the delete get action's question: *@
-    <h3 class="text-danger">@ViewBag.Question</h3>
-
-    <hr />
     <div class="row mb-3">
         <div class="col-2 fw-bold">
             @Html.DisplayNameFor(model => model.Name)
@@ -53,6 +48,46 @@
             @Html.DisplayFor(model => model.Description)
         </div>
     </div>
+    <div class="row mb-3">
+        <div class="col-2 fw-bold">
+            @Html.DisplayNameFor(model => model.UnitPriceF)
+        </div>
+        <div class="col-10">
+            @Html.DisplayFor(model => model.UnitPriceF)
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 fw-bold">
+            @Html.DisplayNameFor(model => model.StockAmount)
+        </div>
+        <div class="col-10">
+            @Html.DisplayFor(model => model.StockAmount)
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 fw-bold">
+            @Html.DisplayNameFor(model => model.ExpirationDateF)
+        </div>
+        <div class="col-10">
+            @Html.DisplayFor(model => model.ExpirationDateF)
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 fw-bold">
+            @Html.DisplayNameFor(model => model.IsContinuedF)
+        </div>
+        <div class="col-10">
+            @Html.DisplayFor(model => model.IsContinuedF)
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 fw-bold">
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </div>
+        <div class="col-10">
+            @Html.DisplayFor(model => model.CategoryName)
+        </div>
+    </div>
 
 @* Can be uncommented and used for many to many relationships. "Entity" may be replaced with the related entiy name in the controller and views. *@
     @*
@@ -66,12 +101,9 @@
     </div>
     *@
 
-    <hr />
-    <form asp-action="Delete">
-	    @Html.AntiForgeryToken()
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Yes" class="btn btn-danger" />&nbsp;&nbsp;
-        <a asp-action="List" class="btn btn-outline-danger">No</a>
-    </form>
+    <hr /> 
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>&nbsp;|&nbsp;
+    <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>&nbsp;|&nbsp;
+    <a asp-action="Index">Back to List</a>
 </div>
 }

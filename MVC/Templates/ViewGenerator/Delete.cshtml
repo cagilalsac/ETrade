@@ -3,7 +3,7 @@
 @using System.Collections.Generic
 @using System.Linq
 @{
-    var viewModel = "@model " + Model.ViewDataTypeName.Split('.')[Model.ViewDataTypeName.Split('.').Length - 1] + "QueryResponse";
+    var viewModel = "@model " + Model.ViewDataTypeName.Split('.')[Model.ViewDataTypeName.Split('.').Length - 1] + "Response";
     var viewDataTypeName = Model.ViewDataTypeName.Split('.')[Model.ViewDataTypeName.Split('.').Length - 1];
 }
 @viewModel

@@ -1,12 +1,12 @@
 ﻿@* @ is used to write C# code in a view with Razor syntax. *@
 
 @* Way 1: We can't use the Category model's property names for the DisplayNameFor HTML Helper parameters if we define the model type as List. *@
-@* @model List<APP.Models.CategoryQueryResponse> *@
+@* @model List<APP.Models.CategoryResponse> *@
 @* Way 2: We can use the Category model's property names for the DisplayNameFor HTML Helper parameters if we define the model type as IEnumerable. *@
-@* Declaration of the type of the model object with the class namespace as IEnumerable<CategoryQueryResponse> sent from Categories contoller's Index action. *@
-@* @model IEnumerable<APP.Models.CategoryQueryResponse> *@
+@* Declaration of the type of the model object with the class namespace as IEnumerable<CategoryResponse> sent from Categories contoller's Index action. *@
+@* @model IEnumerable<APP.Models.CategoryResponse> *@
 @* Way 3: CategoryResponse class namespace which is APP.Models must be defined in Views\_ViewImports.cshtml *@
-@model IEnumerable<CategoryQueryResponse>
+@model IEnumerable<CategoryResponse>
 
 <h1>Categories</h1>
 <hr />
@@ -23,7 +23,7 @@
         </th>
         <th></th>
     </tr>
-    @foreach (APP.Models.CategoryQueryResponse categoryItem in Model) @* Model: the model object of type IEnumerable<CategoryQueryResponse> *@
+    @foreach (APP.Models.CategoryResponse categoryItem in Model) @* Model: the model object of type IEnumerable<CategoryResponse> *@
     {
         <tr>
             <td>

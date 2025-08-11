@@ -19,10 +19,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Db>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Db")));
 
 // Registers the CategoryService with the dependency injection container as a scoped service.
-// It maps the generic interface IService<CategoryRequest, CategoryQueryResponse> to the concrete implementation CategoryService.
+// It maps the generic interface IService<CategoryRequest, CategoryResponse> to the concrete implementation CategoryService.
 // Scoped lifetime means a new instance of CategoryService is created per client request.
-// This enables constructor injection of IService<CategoryRequest, CategoryQueryResponse> wherever needed in the application.
-builder.Services.AddScoped<IService<CategoryRequest, CategoryQueryResponse>, CategoryService>();
+// This enables constructor injection of IService<CategoryRequest, CategoryResponse> wherever needed in the application.
+builder.Services.AddScoped<IService<CategoryRequest, CategoryResponse>, CategoryService>();
+
+// Registers the ProductService with the dependency injection container as a scoped service.
+// It maps the generic interface IService<ProductRequest, ProductResponse> to the concrete implementation ProductService.
+// Scoped lifetime means a new instance of ProductService is created per client request.
+// This enables constructor injection of IService<ProductRequest, ProductResponse> wherever needed in the application.
+builder.Services.AddScoped<IService<ProductRequest, ProductResponse>, ProductService>();
 
 /*
  * Service Lifetimes in ASP.NET Core Dependency Injection:

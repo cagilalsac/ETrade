@@ -10,7 +10,7 @@ namespace MVC.Controllers
     /// </summary>
     public class CategoriesController : Controller
     {
-        private readonly IService<CategoryRequest, CategoryQueryResponse> _service;
+        private readonly IService<CategoryRequest, CategoryResponse> _service;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoriesController"/> class.
@@ -18,7 +18,7 @@ namespace MVC.Controllers
         /// <param name="service">
         /// The injected service used for performing category operations (CRUD).
         /// </param>
-        public CategoriesController(IService<CategoryRequest, CategoryQueryResponse> service)
+        public CategoriesController(IService<CategoryRequest, CategoryResponse> service)
         {
             _service = service;
         }

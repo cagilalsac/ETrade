@@ -4,10 +4,10 @@ namespace APP.Models
 {
     /// <summary>
     /// Represents the response model for category data sent back to clients.
-    /// Inherits from the base <see cref="QueryResponse"/> class, which may contain common response metadata such as ID, status or error information.
+    /// Inherits from the base <see cref="Response"/> class, which may contain common response metadata such as ID, status or error information.
     /// This DTO (Data Transfer Object) is typically used to structure the data returned by API endpoints or services.
     /// </summary>
-    public class CategoryQueryResponse : QueryResponse
+    public class CategoryResponse : Response
     {
         /// <summary>
         /// Gets or sets the name of the category.

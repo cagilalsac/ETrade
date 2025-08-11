@@ -3,14 +3,10 @@
     /// <summary>
     /// Represents the result of executing a command operation (e.g., create, update, delete).
     /// Includes unique identifier, success status and a operation result message.
+    /// Inherits from the base Response abstract class.
     /// </summary>
-    public class CommandResponse
+    public class CommandResponse : Response
     {
-        /// <summary>
-        /// Gets or sets the unique identifier of the response.
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Gets a value indicating whether the command was executed successfully.
         /// </summary>
@@ -23,16 +19,16 @@
         public string Message { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CommandResponse"/> class.
+        /// Initializes a new instance of the <see cref="CommandResponse"/> class
+        /// by sending the id parameter value to the base Response abstract class constructor.
         /// </summary>
         /// <param name="isSuccessful">Indicates whether the command was successful.</param>
         /// <param name="message">Optional message related to the result of the command.</param>
         /// <param name="id">Optional identifier associated with the response or entity.</param>
-        public CommandResponse(bool isSuccessful, string message = "", int id = 0)
+        public CommandResponse(bool isSuccessful, string message = "", int id = 0) : base(id)
         {
             IsSuccessful = isSuccessful;
             Message = message;
-            Id = id;
         }
     }
 }

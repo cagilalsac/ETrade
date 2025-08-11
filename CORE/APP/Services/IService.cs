@@ -13,9 +13,9 @@ namespace CORE.APP.Services
     /// </typeparam>
     /// <typeparam name="TResponse">
     /// The type of the response model returned from query operations. 
-    /// Must inherit from <see cref="QueryResponse"/> and have a parameterless constructor.
+    /// Must inherit from <see cref="Response"/> and have a parameterless constructor.
     /// </typeparam>
-    public interface IService<TRequest, TResponse> where TRequest : Request, new() where TResponse : QueryResponse, new()
+    public interface IService<TRequest, TResponse> where TRequest : Request, new() where TResponse : Response, new()
     {
         /// <summary>
         /// Retrieves a list of items from the data source.

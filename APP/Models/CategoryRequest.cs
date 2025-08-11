@@ -12,10 +12,10 @@ namespace APP.Models
     {
         /// <summary>
         /// Gets or sets the name of the category.
-        /// This field is required and must be between 3 and 100 characters in length.
+        /// This field is required and must be maximum 100 characters in length.
         /// Used to validate and transfer the category name input from clients.
         /// </summary>
-        [Required, StringLength(100, MinimumLength = 3)]
+        [Required, StringLength(100)]
         public string Name { get; set; }
 
         /// <summary>
@@ -24,4 +24,20 @@ namespace APP.Models
         /// </summary>
         public string Description { get; set; }
     }
+
+    /*
+    Some commonly used data annotation attributes in C#:
+    [Required]           // Ensures the property must have a value.
+    [StringLength]       // Sets maximum (and optionally minimum) length for strings.
+    [MinLength]          // Specifies the minimum length for strings or collections.
+    [MaxLength]          // Specifies the maximum length for strings or collections.
+    [Range]              // Defines the allowed range for numeric values.
+    [RegularExpression]  // Validates the property value against a regex pattern.
+    [EmailAddress]       // Validates that the property is a valid email address.
+    [Phone]              // Validates that the property is a valid phone number.
+    [Url]                // Validates that the property is a valid URL.
+    [Compare]            // Compares two properties for equality (e.g., password confirmation).
+    [DisplayName]        // Sets a friendly name for the property (used in error messages/UI).
+    [DataType]           // Specifies the data type (e.g., Date, Time, Currency) for formatting/UI hints.
+    */
 }

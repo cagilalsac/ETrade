@@ -71,7 +71,7 @@ namespace @Model.ControllerNamespace
     }
 
     var requestType = Model.ModelTypeName + "Request";
-    var serviceAbstractType = "IService<" + Model.ModelTypeName + "Request, " + Model.ModelTypeName + "QueryResponse>";
+    var serviceAbstractType = "IService<" + Model.ModelTypeName + "Request, " + Model.ModelTypeName + "Response>";
     var serviceAbstractName = Model.ModelTypeName.ToLower() + "Service";
 }
     public class @Model.ControllerName : Controller
@@ -80,16 +80,16 @@ namespace @Model.ControllerNamespace
         private readonly @serviceAbstractType @("_" + serviceAbstractName);
 @foreach (var relatedProperty in relatedProperties.Keys)
 {
-        @:private readonly IService<@(relatedProperty + "Request, " + relatedProperty + "QueryResponse> _" + relatedProperty.Substring(0, 1).ToLower() + relatedProperty.Substring(1) + "Service");
+        @:private readonly IService<@(relatedProperty + "Request, " + relatedProperty + "Response> _" + relatedProperty.Substring(0, 1).ToLower() + relatedProperty.Substring(1) + "Service");
 }
 
         /* Can be uncommented and used for many to many relationships. "Entity" may be replaced with the related entiy name in the controller and views. */
-        //private readonly IService<EntityRequest, EntityQueryResponse> _EntityService;
+        //private readonly IService<EntityRequest, EntityResponse> _EntityService;
 
         public @(Model.ControllerName + "(\n\t\t\t" + serviceAbstractType + " " + serviceAbstractName)
 @foreach (var relatedProperty in relatedProperties.Keys)
 {
-            @:, IService<@(relatedProperty + "Request, " + relatedProperty + "QueryResponse> _" + relatedProperty.Substring(0, 1).ToLower() + relatedProperty.Substring(1) + "Service")
+            @:, IService<@(relatedProperty + "Request, " + relatedProperty + "Response> " + relatedProperty.Substring(0, 1).ToLower() + relatedProperty.Substring(1) + "Service")
 }
 
             /* Can be uncommented and used for many to many relationships. "Entity" may be replaced with the related entiy name in the controller and views. */
