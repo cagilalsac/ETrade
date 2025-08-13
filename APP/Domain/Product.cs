@@ -1,5 +1,6 @@
 ﻿using CORE.APP.Domain;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APP.Domain
 {
@@ -58,5 +59,23 @@ namespace APP.Domain
         /// Used for ORM mapping to enable category-product relationships.
         /// </summary>
         public Category Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of <see cref="ProductStore"/> entities that associate stores with this product.
+        /// This establishes a many-to-many relationship between products and stores.
+        /// </summary>
+        public List<ProductStore> ProductStores { get; set; } = new List<ProductStore>();
+
+        /// <summary>
+        /// Gets or sets the list of store IDs associated with this product.
+        /// Setting this property updates the <see cref="ProductStores"/> collection accordingly.
+        /// There is no column for this property in the Products table since NotMapped is defined.
+        /// </summary>
+        [NotMapped]
+        public List<int> StoreIds
+        {
+            get => ProductStores.Select(productStore => productStore.StoreId).ToList();
+            set => ProductStores = value.Select(storeId => new ProductStore() { StoreId = storeId }).ToList();
+        }
     }
 }

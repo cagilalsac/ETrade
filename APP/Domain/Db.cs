@@ -22,6 +22,18 @@ namespace APP.Domain
         public DbSet<Category> Categories { get; set; }
 
         /// <summary>
+        /// Gets or sets the <see cref="DbSet{TEntity}"/> representing the collection of stores in the database.
+        /// Enables querying, adding, updating, and deleting <see cref="Store"/> entities.
+        /// </summary>
+        public DbSet<Store> Stores { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="DbSet{TEntity}"/> representing the collection of product stores in the database.
+        /// Enables querying, adding, updating, and deleting <see cref="ProductStore"/> entities.
+        /// </summary>
+        public DbSet<ProductStore> ProductStores { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Db"/> class using the specified options.
         /// These options are typically configured in the application's dependency injection setup,
         /// and may include settings such as the database provider and connection string.

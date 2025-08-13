@@ -17,11 +17,11 @@ namespace MVC.Controllers
         public IActionResult Seed()
         {
             #region Deleting Current Data
-            //var productStores = _db.ProductStores.ToList();
-            //_db.ProductStores.RemoveRange(productStores);
+            var productStores = _db.ProductStores.ToList();
+            _db.ProductStores.RemoveRange(productStores);
 
-            //var stores = _db.Stores.ToList();
-            //_db.Stores.RemoveRange(stores);
+            var stores = _db.Stores.ToList();
+            _db.Stores.RemoveRange(stores);
 
             var products = _db.Products.ToList();
             _db.Products.RemoveRange(products);
@@ -42,15 +42,15 @@ namespace MVC.Controllers
             #endregion
 
             #region Inserting Initial Data
-            //_db.Stores.Add(new Store()
-            //{
-            //    Name = "Hepsiburada"
-            //});
-            //_db.Stores.Add(new Store()
-            //{
-            //    Name = "Vatan"
-            //});
-            //_db.SaveChanges();
+            _db.Stores.Add(new Store()
+            {
+                Name = "Hepsiburada"
+            });
+            _db.Stores.Add(new Store()
+            {
+                Name = "Vatan"
+            });
+            _db.SaveChanges();
 
             _db.Categories.Add(new Category()
             {
@@ -65,13 +65,13 @@ namespace MVC.Controllers
                         UnitPrice = 3000.5m,
                         StockAmount = 100,
                         Description = "Laptops for business operations",
-                        //ProductStores = new List<ProductStore>()
-                        //{
-                        //    new ProductStore()
-                        //    {
-                        //        StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Hepsiburada").Id
-                        //    }
-                        //}
+                        ProductStores = new List<ProductStore>()
+                        {
+                            new ProductStore()
+                            {
+                                StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Hepsiburada").Id
+                            }
+                        }
                     },
                     new Product()
                     {
@@ -79,17 +79,17 @@ namespace MVC.Controllers
                         IsContinued = true,
                         UnitPrice = 20.5m,
                         StockAmount = 500,
-                        //ProductStores = new List<ProductStore>()
-                        //{
-                        //    new ProductStore()
-                        //    {
-                        //        StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Hepsiburada").Id
-                        //    },
-                        //    new ProductStore()
-                        //    {
-                        //        StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Vatan").Id
-                        //    }
-                        //}
+                        ProductStores = new List<ProductStore>()
+                        {
+                            new ProductStore()
+                            {
+                                StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Hepsiburada").Id
+                            },
+                            new ProductStore()
+                            {
+                                StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Vatan").Id
+                            }
+                        }
                     },
                     new Product()
                     {
@@ -97,30 +97,30 @@ namespace MVC.Controllers
                         UnitPrice = 40,
                         StockAmount = 400,
                         IsContinued = true,
-                        //ProductStores = new List<ProductStore>()
-                        //{
-                        //    new ProductStore()
-                        //    {
-                        //        StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Hepsiburada").Id
-                        //    },
-                        //    new ProductStore()
-                        //    {
-                        //        StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Vatan").Id
-                        //    }
-                        //}
+                        ProductStores = new List<ProductStore>()
+                        {
+                            new ProductStore()
+                            {
+                                StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Hepsiburada").Id
+                            },
+                            new ProductStore()
+                            {
+                                StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Vatan").Id
+                            }
+                        }
                     },
                     new Product()
                     {
                         Name = "Monitor",
                         UnitPrice = 2500,
                         StockAmount = 200,
-                        //ProductStores = new List<ProductStore>()
-                        //{
-                        //    new ProductStore()
-                        //    {
-                        //        StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Vatan").Id
-                        //    }
-                        //}
+                        ProductStores = new List<ProductStore>()
+                        {
+                            new ProductStore()
+                            {
+                                StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Vatan").Id
+                            }
+                        }
                     }
                 }
             });
@@ -143,30 +143,30 @@ namespace MVC.Controllers
                         UnitPrice = 5000,
                         StockAmount = 25,
                         IsContinued = true,
-                        //ProductStores = new List<ProductStore>()
-                        //{
-                        //    new ProductStore()
-                        //    {
-                        //        StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Vatan").Id
-                        //    }
-                        //}
+                        ProductStores = new List<ProductStore>()
+                        {
+                            new ProductStore()
+                            {
+                                StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Vatan").Id
+                            }
+                        }
                     },
                     new Product()
                     {
                         Name = "Equalizer",
                         UnitPrice = 1000,
                         StockAmount = 30,
-                        //ProductStores = new List<ProductStore>()
-                        //{
-                        //    new ProductStore()
-                        //    {
-                        //        StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Hepsiburada").Id
-                        //    },
-                        //    new ProductStore()
-                        //    {
-                        //        StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Vatan").Id
-                        //    }
-                        //}
+                        ProductStores = new List<ProductStore>()
+                        {
+                            new ProductStore()
+                            {
+                                StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Hepsiburada").Id
+                            },
+                            new ProductStore()
+                            {
+                                StoreId = _db.Stores.SingleOrDefault(s => s.Name == "Vatan").Id
+                            }
+                        }
                     }
                 }
             });

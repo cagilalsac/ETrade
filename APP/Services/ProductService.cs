@@ -33,14 +33,16 @@ namespace APP.Services
         /// </returns>
         public List<ProductResponse> GetList()
         {
-            // p: Product entity delegate
-            return _db.Products.Include(p => p.Category)
+            // including only category before, p: product entity delegate
+            //return _db.Products.Include(p => p.Category)
+            // STORE UPDATE: including category and product stores with stores, p: product entity delegate, ps: product store entity delegate
+            return _db.Products.Include(p => p.Category).Include(p => p.ProductStores).ThenInclude(ps => ps.Store)
                 .OrderByDescending(p => p.IsContinued)
                 .ThenBy(p => p.StockAmount)
                 .ThenBy(p => p.Name)
                 .Select(p => new ProductResponse()
                 {
-                    CategoryName = p.Category.Name,
+                    Category = p.Category.Name,
                     CategoryId = p.CategoryId,
                     Description = p.Description,
                     Id = p.Id,
@@ -69,7 +71,18 @@ namespace APP.Services
                     // Way 1: "N2" for two decimals, append currency manually
                     //UnitPriceF = p.UnitPrice.ToString("N2") + " Dollars"
                     // Way 2: "C2" for currency format with two decimals (preferred for localization)
-                    UnitPriceF = p.UnitPrice.ToString("C2")
+                    UnitPriceF = p.UnitPrice.ToString("C2"),
+
+                    // STORE UPDATE: existing relational store IDs
+                    StoreIds = p.StoreIds,
+
+                    // STORE UPDATE: existing relational stores, ps: product store entity delegate
+                    Stores = p.ProductStores.OrderBy(ps => ps.Store.Name).Select(ps => new StoreResponse() 
+                    { 
+                        Id = ps.Store.Id, 
+                        Name = ps.Store.Name, 
+                        IsVirtualF = ps.Store.IsVirtual ? "Virtual" : "Physical" 
+                    }).ToList()
                 }).ToList();
         }
 
@@ -83,13 +96,18 @@ namespace APP.Services
         /// </returns>
         public ProductResponse GetItem(int id)
         {
-            var entity = _db.Products.Include(p => p.Category).SingleOrDefault(p => p.Id == id);
+            // including only category before, p: product entity delegate
+            //var entity = _db.Products.Include(p => p.Category).SingleOrDefault(p => p.Id == id);
+
+            // STORE UPDATE: including category and product stores with stores, p: product entity delegate, ps: product store entity delegate
+            var entity = _db.Products.Include(p => p.Category).Include(p => p.ProductStores).ThenInclude(ps => ps.Store).SingleOrDefault(p => p.Id == id);
+
             if (entity is null)
                 return null;
 
             return new ProductResponse()
             {
-                CategoryName = entity.Category.Name,
+                Category = entity.Category.Name,
                 CategoryId = entity.CategoryId,
                 Description = entity.Description,
                 Id = entity.Id,
@@ -118,7 +136,18 @@ namespace APP.Services
                 // Way 1: "N2" for two decimals, append currency manually
                 //UnitPriceF = entity.UnitPrice.ToString("N2") + " Dollars"
                 // Way 2: "C2" for currency format with two decimals (preferred for localization)
-                UnitPriceF = entity.UnitPrice.ToString("C2")
+                UnitPriceF = entity.UnitPrice.ToString("C2"),
+
+                // STORE UPDATE: existing relational store IDs
+                StoreIds = entity.StoreIds,
+
+                // STORE UPDATE: existing relational stores
+                Stores = entity.ProductStores.OrderBy(ps => ps.Store.Name).Select(ps => new StoreResponse()
+                {
+                    Id = ps.Store.Id,
+                    Name = ps.Store.Name,
+                    IsVirtualF = ps.Store.IsVirtual ? "Virtual" : "Physical"
+                }).ToList()
             };
         }
 
@@ -141,11 +170,13 @@ namespace APP.Services
                 CategoryId = request.CategoryId ?? 0,
                 Description = request.Description?.Trim(),
                 ExpirationDate = request.ExpirationDate,
-                Id = request.Id,
                 IsContinued = request.IsContinued,
                 Name = request.Name?.Trim(),
                 StockAmount = request.StockAmount,
-                UnitPrice = request.UnitPrice
+                UnitPrice = request.UnitPrice,
+
+                // STORE UPDATE:
+                StoreIds = request.StoreIds // set the relational product store entities by store IDs that the user selected in the view
             };
 
             _db.Products.Add(entity); // _db.Add(entity); can also be written
@@ -164,7 +195,11 @@ namespace APP.Services
         /// </returns>
         public ProductRequest GetItemForEdit(int id)
         {
-            var entity = _db.Products.Include(p => p.Category).SingleOrDefault(p => p.Id == id);
+            // including only category before
+            //var entity = _db.Products.Include(p => p.Category).SingleOrDefault(p => p.Id == id);
+            // STORE UPDATE: including category and product stores
+            var entity = _db.Products.Include(p => p.Category).Include(p => p.ProductStores).SingleOrDefault(p => p.Id == id);
+
             if (entity is null)
                 return null;
 
@@ -177,7 +212,10 @@ namespace APP.Services
                 Name = entity.Name,
                 UnitPrice = entity.UnitPrice,
                 ExpirationDate = entity.ExpirationDate,
-                StockAmount = entity.StockAmount
+                StockAmount = entity.StockAmount,
+
+                // STORE UPDATE: existing store IDs from the product store entities
+                StoreIds = entity.StoreIds
             };
         }
 
@@ -195,7 +233,18 @@ namespace APP.Services
             if (_db.Products.Any(p => p.Id != request.Id && p.Name.ToUpper() == request.Name.ToUpper().Trim()))
                 return Error("Product with the same name exists!");
 
-            var entity = _db.Products.Find(request.Id);
+            // getting only the product entity before
+            //var entity = _db.Products.Find(request.Id);
+            // STORE UPDATE: getting the product entity with relational product store entities
+            var entity = _db.Products.Include(p => p.ProductStores).SingleOrDefault(p => p.Id == request.Id);
+
+            if (entity is null)
+                return Error("Product not found!");
+
+            // STORE UPDATE: remove the relational product store entities first
+            _db.ProductStores.RemoveRange(entity.ProductStores);
+
+            // update the product entity
             entity.CategoryId = request.CategoryId ?? 0;
             entity.Description = request.Description?.Trim();
             entity.ExpirationDate = request.ExpirationDate;
@@ -204,6 +253,9 @@ namespace APP.Services
             entity.Name = request.Name?.Trim();
             entity.StockAmount = request.StockAmount;
             entity.UnitPrice = request.UnitPrice;
+
+            // STORE UPDATE: update the relational product store entities by store IDs that the user selected in the view
+            entity.StoreIds = request.StoreIds;
 
             _db.Products.Update(entity); // _db.Update(entity); can also be written
             _db.SaveChanges();
@@ -220,10 +272,18 @@ namespace APP.Services
         /// </returns>
         public CommandResponse Delete(int id)
         {
-            var entity = _db.Products.Find(id);
-            if (entity is null)
-                return null;
+            // getting only the product entity before
+            //var entity = _db.Products.Find(id);
+            // STORE UPDATE: getting the product entity with relational product store entities
+            var entity = _db.Products.Include(p => p.ProductStores).SingleOrDefault(p => p.Id == id);
 
+            if (entity is null)
+                return Error("Product not found!");
+
+            // STORE UPDATE: remove the relational product store entities first
+            _db.ProductStores.RemoveRange(entity.ProductStores);
+
+            // remove the product entity
             _db.Products.Remove(entity); // _db.Remove(entity); can also be written
             _db.SaveChanges();
 

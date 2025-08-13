@@ -97,27 +97,6 @@ namespace APP.Services
         }
 
         /// <summary>
-        /// Retrieves a single category based on the provided ID.
-        /// </summary>
-        /// <param name="id">The unique identifier of the category.</param>
-        /// <returns>
-        /// A <see cref="CategoryRequest"/> object if the category is found; otherwise, <c>null</c>.
-        /// </returns>
-        public CategoryRequest GetItemForEdit(int id)
-        {
-            var entity = _db.Categories.SingleOrDefault(categoryEntity => categoryEntity.Id == id);
-            if (entity is null)
-                return null;
-
-            return new CategoryRequest()
-            {
-                Id = entity.Id,
-                Name = entity.Name,
-                Description = entity.Description
-            };
-        }
-
-        /// <summary>
         /// Creates a new category in the database.
         /// Validates to ensure category name uniqueness (case-insensitive).
         /// </summary>
@@ -149,6 +128,27 @@ namespace APP.Services
             _db.SaveChanges();
 
             return Success("Category created successfully.", entity.Id);
+        }
+
+        /// <summary>
+        /// Retrieves a single category based on the provided ID.
+        /// </summary>
+        /// <param name="id">The unique identifier of the category.</param>
+        /// <returns>
+        /// A <see cref="CategoryRequest"/> object if the category is found; otherwise, <c>null</c>.
+        /// </returns>
+        public CategoryRequest GetItemForEdit(int id)
+        {
+            var entity = _db.Categories.SingleOrDefault(categoryEntity => categoryEntity.Id == id);
+            if (entity is null)
+                return null;
+
+            return new CategoryRequest()
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Description = entity.Description
+            };
         }
 
         /// <summary>
@@ -186,8 +186,11 @@ namespace APP.Services
         /// </returns>
         public CommandResponse Delete(int id)
         {
+            // Entity Framework Eager Loading: Using Include method to get relational data with a query when needed.
+            // Entity Framework Lazy Loading: Can be configured in Db inheriting from DbContext, always gets the
+            // relational data without using Include method for all queries.
             var entity = _db.Categories
-                .Include(categoryEntity => categoryEntity.Products) // get the relational product data related to this category (Entity Framework Eager Loading)
+                .Include(categoryEntity => categoryEntity.Products) 
                 .SingleOrDefault(categoryEntity => categoryEntity.Id == id);
 
             if (entity is null)

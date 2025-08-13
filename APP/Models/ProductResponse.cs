@@ -65,8 +65,21 @@ namespace APP.Models
         /// <summary>
         /// Gets or sets the name of the related category.
         /// </summary>
-        [DisplayName("Category")]
-        public string CategoryName { get; set; }
+        public string Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of store IDs where this product is available.
+        /// This property contains the unique identifiers of the stores associated with the product,
+        /// enabling efficient lookups and data binding scenarios where only store references are needed.
+        /// </summary>
+        public List<int> StoreIds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of detailed store information where this product is available.
+        /// Each item in the list provides comprehensive data about a store, such as its name, type, and product summary.
+        /// Useful for displaying store details in UI views or API responses alongside the product.
+        /// </summary>
+        public List<StoreResponse> Stores { get; set; } 
     }
 }
 

@@ -69,5 +69,14 @@ namespace APP.Models
         [DisplayName("Category")]
         [Required(ErrorMessage = "{0} is required!")]
         public int? CategoryId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of store IDs where this product is available.
+        /// This property allows associating the product with multiple stores, enabling scenarios
+        /// such as multi-store inventory management or product availability tracking across different locations.
+        /// The list contains the unique identifiers (IDs) of the related stores.
+        /// </summary>
+        [DisplayName("Stores")]
+        public List<int> StoreIds { get; set; }
     }
 }
