@@ -77,6 +77,6 @@ namespace APP.Models
         /// The list contains the unique identifiers (IDs) of the related stores.
         /// </summary>
         [DisplayName("Stores")]
-        public List<int> StoreIds { get; set; }
+        public List<int> StoreIds { get; set; } = new List<int>();
     }
 }

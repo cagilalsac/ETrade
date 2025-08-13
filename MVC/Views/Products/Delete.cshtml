@@ -91,17 +91,22 @@
         </div>
     </div>
 
+@* STORE UPDATE: *@
 @* Can be uncommented and used for many to many relationships. "Entity" may be replaced with the related entiy name in the controller and views. *@
-    @*
+    
     <div class="row mb-3">
         <div class="col-2 fw-bold">
-            <b>@Html.DisplayNameFor(model => model.Entitys)</b>
+            <b>@Html.DisplayNameFor(model => model.Stores)</b>
         </div>
         <div class="col-10">
-            @Html.Raw(Model.Entitys)
+            @* 
+            Joins the names of all stores associated with the product into a single break line separated string for display.
+            If a string has any HTML markups, Raw HTML Helper is used.              
+            *@
+            @Html.Raw(string.Join("<br>", Model.Stores.Select(s => s.Name)))
         </div>
     </div>
-    *@
+   
 
     <hr />
     <form asp-action="Delete">

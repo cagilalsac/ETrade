@@ -72,14 +72,14 @@ namespace APP.Models
         /// This property contains the unique identifiers of the stores associated with the product,
         /// enabling efficient lookups and data binding scenarios where only store references are needed.
         /// </summary>
-        public List<int> StoreIds { get; set; }
+        public List<int> StoreIds { get; set; } = new List<int>();
 
         /// <summary>
         /// Gets or sets the list of detailed store information where this product is available.
         /// Each item in the list provides comprehensive data about a store, such as its name, type, and product summary.
         /// Useful for displaying store details in UI views or API responses alongside the product.
         /// </summary>
-        public List<StoreResponse> Stores { get; set; } 
+        public List<StoreResponse> Stores { get; set; } = new List<StoreResponse>();
     }
 }
 

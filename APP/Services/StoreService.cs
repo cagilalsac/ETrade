@@ -115,7 +115,7 @@ namespace APP.Services
             _db.Stores.Add(entity);
             _db.SaveChanges();
 
-            return Success("Store created successfully.");
+            return Success("Store created successfully.", entity.Id);
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace APP.Services
             _db.Stores.Update(entity);
             _db.SaveChanges();
 
-            return Success("Store updated successfully.");
+            return Success("Store updated successfully.", entity.Id);
         }
 
         /// <summary>

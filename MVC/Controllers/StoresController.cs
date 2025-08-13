@@ -8,31 +8,25 @@ using APP.Models;
 
 namespace MVC.Controllers
 {
-    public class ProductsController : Controller
+    public class StoresController : Controller
     {
         // Service injections:
-        private readonly IService<ProductRequest, ProductResponse> _productService;
-        private readonly IService<CategoryRequest, CategoryResponse> _categoryService;
+        private readonly IService<StoreRequest, StoreResponse> _storeService;
 
-        // STORE UPDATE:
         /* Can be uncommented and used for many to many relationships. "Entity" may be replaced with the related entiy name in the controller and views. */
-        private readonly IService<StoreRequest, StoreResponse> _StoreService;
+        //private readonly IService<EntityRequest, EntityResponse> _EntityService;
 
-        public ProductsController(
-			IService<ProductRequest, ProductResponse> productService
-            , IService<CategoryRequest, CategoryResponse> categoryService
+        public StoresController(
+			IService<StoreRequest, StoreResponse> storeService
 
-            // STORE UPDATE:
             /* Can be uncommented and used for many to many relationships. "Entity" may be replaced with the related entiy name in the controller and views. */
-            , IService<StoreRequest, StoreResponse> StoreService
+            //, IService<EntityRequest, EntityResponse> EntityService
         )
         {
-            _productService = productService;
-            _categoryService = categoryService;
+            _storeService = storeService;
 
-            // STORE UPDATE:
             /* Can be uncommented and used for many to many relationships. "Entity" may be replaced with the related entiy name in the controller and views. */
-            _StoreService = StoreService;
+            //_EntityService = EntityService;
         }
 
         private void SetViewData()
@@ -43,11 +37,9 @@ namespace MVC.Controllers
             */
 
             // Related items service logic to set ViewData (Id and Name parameters may need to be changed in the SelectList constructor according to the model):
-            ViewData["CategoryId"] = new SelectList(_categoryService.GetList(), "Id", "Name");
             
-            // STORE UPDATE:
             /* Can be uncommented and used for many to many relationships. "Entity" may be replaced with the related entiy name in the controller and views. */
-            ViewBag.StoreIds = new MultiSelectList(_StoreService.GetList(), "Id", "Name");
+            //ViewBag.EntityIds = new MultiSelectList(_EntityService.GetList(), "Id", "Name");
         }
 
         private void SetTempData(string message, string key = "Message")
@@ -59,37 +51,37 @@ namespace MVC.Controllers
             TempData[key] = message;
         }
 
-        // GET: Products
+        // GET: Stores
         public IActionResult Index()
         {
             // Get collection service logic:
-            var list = _productService.GetList();
+            var list = _storeService.GetList();
             return View(list);
         }
 
-        // GET: Products/Details/5
+        // GET: Stores/Details/5
         public IActionResult Details(int id)
         {
             // Get item service logic:
-            var item = _productService.GetItem(id);
+            var item = _storeService.GetItem(id);
             return View(item);
         }
 
-        // GET: Products/Create
+        // GET: Stores/Create
         public IActionResult Create()
         {
             SetViewData();
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Stores/Create
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Create(ProductRequest product)
+        public IActionResult Create(StoreRequest store)
         {
             if (ModelState.IsValid)
             {
                 // Insert item service logic:
-                var result = _productService.Create(product);
+                var result = _storeService.Create(store);
                 if (result.IsSuccessful)
                 {
                     SetTempData(result.Message);
@@ -98,26 +90,26 @@ namespace MVC.Controllers
                 ModelState.AddModelError("", result.Message);
             }
             SetViewData();
-            return View(product);
+            return View(store);
         }
 
-        // GET: Products/Edit/5
+        // GET: Stores/Edit/5
         public IActionResult Edit(int id)
         {
             // Get item to edit service logic:
-            var item = _productService.GetItemForEdit(id);
+            var item = _storeService.GetItemForEdit(id);
             SetViewData();
             return View(item);
         }
 
-        // POST: Products/Edit
+        // POST: Stores/Edit
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Edit(ProductRequest product)
+        public IActionResult Edit(StoreRequest store)
         {
             if (ModelState.IsValid)
             {
                 // Update item service logic:
-                var result = _productService.Update(product);
+                var result = _storeService.Update(store);
                 if (result.IsSuccessful)
                 {
                     SetTempData(result.Message);
@@ -126,23 +118,23 @@ namespace MVC.Controllers
                 ModelState.AddModelError("", result.Message);
             }
             SetViewData();
-            return View(product);
+            return View(store);
         }
 
-        // GET: Products/Delete/5
+        // GET: Stores/Delete/5
         public IActionResult Delete(int id)
         {
             // Get item to delete service logic:
-            var item = _productService.GetItem(id);
+            var item = _storeService.GetItem(id);
             return View(item);
         }
 
-        // POST: Products/Delete
+        // POST: Stores/Delete
         [HttpPost, ValidateAntiForgeryToken, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
             // Delete item service logic:
-            var result = _productService.Delete(id);
+            var result = _storeService.Delete(id);
             SetTempData(result.Message);
             return RedirectToAction(nameof(Index));
         }

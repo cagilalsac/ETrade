@@ -47,7 +47,13 @@ https://need4code.com/DotNet/Home/Index?path=.NET%5C00_Files%5CScaffolding%20Tem
 # 7) MVC Project (Product):
 7.1) Add "builder.Services.AddScoped<IService<ProductRequest, ProductResponse>, ProductService>();"\
 in the IoC Container of the [MVC/Program.cs](https://github.com/cagilalsac/ETrade/blob/main/MVC/Program.cs) file\
-7.2) Scaffold Products controller with views using Entity Framework\
+7.2) Scaffold Products controller with views using Entity Framework and make changes in the controller and views if needed\
+[MVC/Controllers/ProductsController.cs](https://github.com/cagilalsac/ETrade/blob/main/MVC/Controllers/ProductsController.cs)\
+[MVC/Views/Products/Index.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Products/Index.cshtml)\
+[MVC/Views/Products/Details.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Products/Details.cshtml)\
+[MVC/Views/Products/Create.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Products/Create.cshtml)\
+[MVC/Views/Products/Edit.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Products/Edit.cshtml)\
+[MVC/Views/Products/Delete.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Products/Delete.cshtml)\
 7.3) Add "jquery-datetimepicker" client-side library under wwwroot/lib folder of the MVC Project\
 7.4) Add Products link to Bootstrap Navbar in [MVC/Views/Shared/Layout.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Shared/_Layout.cshtml)
 # 8) APP Project (Store):
@@ -56,10 +62,27 @@ in the IoC Container of the [MVC/Program.cs](https://github.com/cagilalsac/ETrad
 8.3) Add ProductStores and StoreIds properties to [APP/Domain/Product.cs](https://github.com/cagilalsac/ETrade/blob/main/APP/Domain/Product.cs)\
 8.4) Add Stores and ProductStores DbSets to [APP/Domain/Db.cs](https://github.com/cagilalsac/ETrade/blob/main/APP/Domain/Db.cs)\
 8.5) Run "add-migration v2" in Package Manager Console after selecting APP Project as the default project\
-8.6) Run "update-database" to update the database for Stores and ProductStores tables in (LocalDB)\MSSQLLocalDB database server or SQLite database file
+8.6) Run "update-database" to update the database for Stores and ProductStores tables in (LocalDB)\MSSQLLocalDB database server or SQLite database file\
 8.7) Create [APP/Models/StoreRequest.cs](https://github.com/cagilalsac/ETrade/blob/main/APP/Models/StoreRequest.cs)\
 8.8) Create [APP/Models/StoreResponse.cs](https://github.com/cagilalsac/ETrade/blob/main/APP/Models/StoreResponse.cs)\
 8.9) Create [APP/Services/StoreService.cs](https://github.com/cagilalsac/ETrade/blob/main/APP/Services/StoreService.cs)\
 8.10) Add StoreIds property to [APP/Models/ProductRequest.cs](https://github.com/cagilalsac/ETrade/blob/main/APP/Models/ProductRequest.cs)\
 8.11) Add StoreIds and Stores properties to [APP/Models/ProductResponse.cs](https://github.com/cagilalsac/ETrade/blob/main/APP/Models/ProductResponse.cs)\
 8.12) Add the lines commented as STORE UPDATE to the methods of [APP/Services/ProductService.cs](https://github.com/cagilalsac/ETrade/blob/main/APP/Services/ProductService.cs)
+# 9) MVC Project (Store):
+9.1) Add "builder.Services.AddScoped<IService<StoreRequest, StoreResponse>, StoreService>();"\
+in the IoC Container of the [MVC/Program.cs](https://github.com/cagilalsac/ETrade/blob/main/MVC/Program.cs) file\
+9.2) Add the lines commented as STORE UPDATE to the view [MVC/Views/Products/Index.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Products/Index.cshtml)\
+9.3) Add the lines commented as STORE UPDATE to the view [MVC/Views/Products/Details.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Products/Details.cshtml)\
+9.4) Add the lines commented as STORE UPDATE to the controller [MVC/Controllers/ProductsController.cs](https://github.com/cagilalsac/ETrade/blob/main/MVC/Controllers/ProductsController.cs)\
+9.5) Add the lines commented as STORE UPDATE to the view [MVC/Views/Products/Create.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Products/Create.cshtml)\
+9.6) Add the lines commented as STORE UPDATE to the view [MVC/Views/Products/Edit.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Products/Edit.cshtml)\
+9.7) Add the lines commented as STORE UPDATE to the view [MVC/Views/Products/Delete.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Products/Delete.cshtml)\
+9.8) Scaffold Stores controller with views using Entity Framework and make changes in the controller and views if needed\
+[MVC/Controllers/StoresController.cs](https://github.com/cagilalsac/ETrade/blob/main/MVC/Controllers/StoresController.cs)\
+[MVC/Views/Stores/Index.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Stores/Index.cshtml)\
+[MVC/Views/Stores/Details.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Stores/Details.cshtml)\
+[MVC/Views/Stores/Create.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Stores/Create.cshtml)\
+[MVC/Views/Stores/Edit.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Stores/Edit.cshtml)\
+[MVC/Views/Stores/Delete.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Stores/Delete.cshtml)\
+9.9) Add Stores link to Bootstrap Navbar in [MVC/Views/Shared/Layout.cshtml](https://github.com/cagilalsac/ETrade/blob/main/MVC/Views/Shared/_Layout.cshtml)

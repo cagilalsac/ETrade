@@ -1,10 +1,10 @@
-﻿@model IEnumerable<ProductResponse>
+﻿@model IEnumerable<StoreResponse>
 
 @* Generated from Custom MVC Template. *@
 @* Model namespace using directive should be added to _ViewImports.cshtml. *@
 
 @{
-    var containerDivClass = "container-fluid"; /* Bootstrap container class changed to container-fluid for full width */
+    var containerDivClass = "container";
 }
 @{
     /*
@@ -12,7 +12,7 @@
     They carry extra data other than the model from a controller action to its view, or between views.
     The value assigned will be shown in Views\Shared\_Layout.cshtml view's title tag of the head tag.
     */
-    ViewData["Title"] = "Product List";
+    ViewData["Title"] = "Store List";
 }
 
 <div class="@containerDivClass">
@@ -47,24 +47,10 @@
                             @Html.DisplayNameFor(model => model.Name)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.UnitPriceF)
+                            @Html.DisplayNameFor(model => model.IsVirtualF)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.StockAmount)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ExpirationDateF)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.IsContinuedF)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Category)
-                        </th>
-
-                        @* STORE UPDATE: *@
-                        <th>
-                            @Html.DisplayNameFor(model => model.Stores)
+                            @Html.DisplayNameFor(model => model.ProductCount)
                         </th>
                         <th></th>
                     </tr>
@@ -76,28 +62,10 @@
 						        @Html.DisplayFor(modelItem => item.Name)
 					        </td>
 					        <td>
-						        @Html.DisplayFor(modelItem => item.UnitPriceF)
+						        @Html.DisplayFor(modelItem => item.IsVirtualF)
 					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.StockAmount)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.ExpirationDateF)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.IsContinuedF)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.Category)
-					        </td>
-
-                            @* STORE UPDATE: *@
                             <td>
-                                @{
-                                    // Joins the names of all stores associated with the product into a single comma-separated string for display.
-                                    var stores = string.Join(", ", item.Stores.Select(s => s.Name));
-                                }
-                                @Html.Label("Stores", stores) @* renders a HTML label tag with name attribute as Stores and text as stores variable value *@
+                                @Html.DisplayFor(modelItem => item.ProductCount)
                             </td>
 					        <td class="text-end w-25">
 						        <a asp-action="Details" asp-route-id="@item.Id">Details</a>&nbsp;|&nbsp;

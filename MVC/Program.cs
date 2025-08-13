@@ -30,6 +30,12 @@ builder.Services.AddScoped<IService<CategoryRequest, CategoryResponse>, Category
 // This enables constructor injection of IService<ProductRequest, ProductResponse> wherever needed in the application.
 builder.Services.AddScoped<IService<ProductRequest, ProductResponse>, ProductService>();
 
+// Registers the StoreService with the dependency injection container as a scoped service.
+// It maps the generic interface IService<StoreRequest, StoreResponse> to the concrete implementation StoreService.
+// Scoped lifetime means a new instance of StoreService is created per client request.
+// This enables constructor injection of IService<StoreRequest, StoreResponse> wherever needed in the application.
+builder.Services.AddScoped<IService<StoreRequest, StoreResponse>, StoreService>();
+
 /*
  * Service Lifetimes in ASP.NET Core Dependency Injection:
  *
